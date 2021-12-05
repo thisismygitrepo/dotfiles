@@ -33,5 +33,3 @@ chmod 700 .ssh
 cd .ssh
 touch authorized_keys
 chmod 600 authorized_keys
-Edit your authorized_keys file to add your id_rsa.pub key to this file (paste cleanly!)
-cd ..
