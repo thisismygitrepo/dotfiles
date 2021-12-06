@@ -1,5 +1,6 @@
 
 import crocodile.toolbox as tb
+# see: `gci env:`
 
 
 def temp_change_powershell(path, kind="append"):
