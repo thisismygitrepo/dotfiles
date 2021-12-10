@@ -27,8 +27,9 @@ cd code
 git clone https://github.com/thisismygitrepo/crocodile.git
 pip install -e ./crocodile
 pip install -r ./crocodile/requirements.txt
-cd code/dotfiles
-python create_symlinks.py
+cd ~
+conda activate ve  # must pass password for decryption in a way not logged:
+ipython -i crocodile.run code/dotfiles/create_symlinks.py -f main
 git clone https://github.com/thisismygitrepo/crypto.git
 pip install -r ./crypto/requirements.txt
 
