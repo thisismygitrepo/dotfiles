@@ -10,12 +10,12 @@ def backup_keys():
     zipped = dat.zip()
     enc, pw = zipped.encrypt()
     zipped.delete(are_you_sure=True)
-    enc.move(tb.P(onedrive_path).joinpath("AppData"))
-    print(pw)
+    target = tb.P(onedrive_path).joinpath("AppData")
+    enc.move(target, replace=True)
     return pw
 
 
-def retries_keys(pw):
+def retrieve_keys(pw):
     onedrive_path = tb.Terminal().run_command(fr"$env:ONEDRIVE").stdout.replace("\n", "")
     dec_file = tb.P(onedrive_path).joinpath("AppData/my_private_keys_encrypted.zip").decrypt(pw)
     dec_file.unzip(op_path=tb.P.home())
@@ -55,7 +55,7 @@ def link_crypto_source_of_truth():
 
 
 def main(pw):  # run all
-    retries_keys(pw)
+    retrieve_keys(pw)
     link_pypi_and_global_git_config()
     link_crypto_source_of_truth()
     SSH().link()
