@@ -15,7 +15,7 @@ dat = path.readit()
 dat["startOnUserLogin"] = True
 dat["launchMode"] = "fullscreen"
 dat["focusFollowMouse"] = True
-dat["copyOnSelect"] = False
+dat["copyOnSelect"] = True
 dat["profiles"]["defaults"]["padding"] = "0"
 dat["profiles"]["defaults"]["useAcrylic"] = True
 profs = tb.L(dat["profiles"]["list"])
@@ -29,7 +29,7 @@ pr["font"]["face"] = "CaskaydiaCove Nerd Font Mono"
 # Adding IPythonShell
 py_pr = tb.copy.deepcopy(pr)  # use it as a template for the new profile.
 py_pr["name"] = "IPythonShell"
-py_pr["guid"] = "{" + f"2ced56a6-632d-4fcf-910a-703d{tb.randstr(length=6, uppercase=False, lowercase=False)}e8" + "}"
+py_pr["guid"] = "{" + f"2ced56a6-632d-4fcf-910a-703d{tb.randstr(length=6, upper=False, lower=False)}e8" + "}"
 # pr["startingDirectory"] = "%CURRENTPATH%"  # as opposed to "%USERPROFILE%"
 py_pr["commandline"] = "powershell.exe -Command \"conda activate ve; ipython -i -c 'import crocodile.toolbox as tb'\""
 profs.append(py_pr)

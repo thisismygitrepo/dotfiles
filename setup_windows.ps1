@@ -40,7 +40,7 @@ winget install --name "AWS Command Line Interface"
 winget install --name "Windows Terminal" --Id "Preview Microsoft.WindowsTerminal.Preview"
 winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget
 winget install JanDeDobbeleer.OhMyPosh
-python "terminal_setup/install_fancy_terminal.py"
+python -m crocodile.run "terminal_setup/install_fancy_terminal.py" -f install
 python "terminal_setup/change_terminal_settings.py"
 
 # productivity

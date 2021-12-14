@@ -1,20 +1,19 @@
 
+"""
+Manage enviroment path from Python.
+"""
 import crocodile.toolbox as tb
 # see: `gci env:`
 
 
 def temp_change_powershell(path, kind="append"):
-    if kind == "append":
-        # Append to the Path variable in the current window:
+    if kind == "append":  # Append to the Path variable in the current window:
         command = fr'$env:Path += ";{path}"'
-    elif kind == "prefix":
-        # Prefix the Path variable in the current window:
+    elif kind == "prefix":  # Prefix the Path variable in the current window:
         command = fr'$env:Path = "{path};" + $env:Path'
-    elif kind == "replace":
-        # Replace the Path variable in the current window (use with caution!):
+    elif kind == "replace":  # Replace the Path variable in the current window (use with caution!):
         command = fr'$env:Path = "{path}"'
-    else:
-        raise KeyError
+    else: raise KeyError
     return command
 
 
@@ -25,4 +24,4 @@ def permanet_change_powershell(path, which=["User", "Machine"][0]):
 
 
 if __name__ == '__main__':
-    pass
+    tb.os.system("ls")

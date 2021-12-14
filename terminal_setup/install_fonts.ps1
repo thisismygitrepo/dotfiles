@@ -2,7 +2,7 @@
 # to run: powershell.exe -executionpolicy Bypass -nologo -noninteractive -file .\Install_Fonts.ps1
 
 $FONTS = 0x14
-$Path="C:\Users\Alex\Downloads\CascadiaCode"
+$Path=".\fonts-to-be-installed"
 $objShell = New-Object -ComObject Shell.Application
 $objFolder = $objShell.Namespace($FONTS)
 $Fontdir = dir $Path
