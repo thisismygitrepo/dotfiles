@@ -25,11 +25,16 @@ winget install --name "Git"
 mkdir code
 cd code
 git clone https://github.com/thisismygitrepo/crocodile.git
-pip install -e ./crocodile
-pip install -r ./crocodile/requirements.txt
+pip install -e ./crocodile  # local installation of crocodile (allows for development)
+pip install -r ./crocodile/requirements.txt  # not installed automatically by corocdile.
 cd ~
-conda activate ve  # must pass password for decryption in a way not logged:
-ipython -i crocodile.run code/dotfiles/create_symlinks.py -f main
+conda activate ve
+
+# decryption:
+# why launching this in a separate thread?
+python -m crocodile.run code/dotfiles/create_symlinks.py -f main --python
+
+
 git clone https://github.com/thisismygitrepo/crypto.git
 pip install -r ./crypto/requirements.txt
 
@@ -40,7 +45,8 @@ winget install --name "AWS Command Line Interface"
 winget install --name "Windows Terminal" --Id "Preview Microsoft.WindowsTerminal.Preview"
 winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget
 winget install JanDeDobbeleer.OhMyPosh
-python -m crocodile.run "terminal_setup/install_fancy_terminal.py" -f install
+python -m fire "terminal_setup/install_fancy_terminal.py" install
+# python -m fire "terminal_setup/install_fancy_terminal.py" choose
 python "terminal_setup/change_terminal_settings.py"
 
 # productivity

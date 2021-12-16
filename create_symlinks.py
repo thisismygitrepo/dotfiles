@@ -12,20 +12,23 @@ logger = tb.Log(file=False)
 
 def backup_my_private_keys():
     logger.critical(f"Be wary of password saved in history. Do not run this in IPython.")
-    if not input(f"Confirm? [y/n]") != "y": return None
-    onedrive_path = tb.Terminal().run_command(fr"$env:ONEDRIVE").stdout.replace("\n", "")
+    key = input(f"Pass key if you have an old one, or press enter to create a new one")
+    key = key if key != "" else None
     zipped = dat.zip()
-    enc, pw = zipped.encrypt()
+    pw_path, op_path = zipped.encrypt(key=key)
     zipped.delete(are_you_sure=True)
-    target = tb.P(onedrive_path).joinpath("AppData")
-    enc.move(target, replace=True)
-    return pw
+    op_path.move(tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData"), overwrite=True)
+    final_path = pw_path.zip()
+    pw_path.delete(are_you_sure=True)
+    print(f"key saved @ {final_path.as_uri()}")
+    return final_path
 
 
-def retrieve_my_private_keys(pw):
-    # onedrive_path = tb.Terminal().run_command(fr"$env:ONEDRIVE").stdout.replace("\n", "")
-    onedrive_path = tb.os.environ["ONEDRIVE"]
-    dec_file = tb.P(onedrive_path).joinpath("AppData/my_private_keys_encrypted.zip").decrypt(pw)
+def retrieve_my_private_keys():
+    path = input(f"path to key to decrypt keys folder (DONT'T use quotation marks nor raw prefix):")
+    pw = tb.P(path)
+    pw = pw.unzip().search("*")[0]
+    _, dec_file = tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/my_private_keys_encrypted.zip").decrypt(pw)
     dec_file.unzip(op_path=tb.P.home())
     dec_file.delete(are_you_sure=True)
 
@@ -63,12 +66,12 @@ def link_crypto_source_of_truth():
             dat.joinpath("creds/crypto_source_of_truth.py"))
 
 
-def main(pw):  # run all
-    retrieve_my_private_keys(pw)
+def main():  # run all
+    retrieve_my_private_keys()
     link_pypi_and_global_git_config()
     link_crypto_source_of_truth()
     SSH().link()
 
 
 if __name__ == '__main__':
-    pass
+    retrieve_my_private_keys()

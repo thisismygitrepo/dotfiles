@@ -23,8 +23,10 @@ def install():
                             f" | Invoke-Expression")
 
 
-def choose():  # run this function to interactively choose a style
-    # Optionally, inpsect the themes of oh my posh and select one:
+def choose():
+    """run this function to interactively choose a style
+    Optionally, inpsect the themes of oh my posh and select one:
+    """
     import webbrowser
     webbrowser.open(url="https://ohmyposh.dev/docs/themes")
     # replace ~/jan... with full path to theme.
