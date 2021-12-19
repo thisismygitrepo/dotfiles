@@ -7,11 +7,12 @@ import crocodile.toolbox as tb
 
 
 dat = tb.P.home().joinpath("my_private_keys")
-logger = tb.Log(file=False)
+# logger = tb.Log(file=False)
 
 
 def backup_my_private_keys():
-    logger.critical(f"Be wary of password saved in history. Do not run this in IPython.")
+    """Encrypts and saves a copy of `my_private_keys` to OneDrive"""
+    print(f"Be wary of password saved in history. Do not run this in IPython.")
     key = input(f"Pass key if you have an old one, or press enter to create a new one")
     key = key if key != "" else None
     zipped = dat.zip()
@@ -25,6 +26,7 @@ def backup_my_private_keys():
 
 
 def retrieve_my_private_keys():
+    """Decrypts and brings a copy of `my_private_keys` from OneDrive"""
     path = input(f"path to key to decrypt keys folder (DONT'T use quotation marks nor raw prefix):")
     pw = tb.P(path)
     pw = pw.unzip().search("*")[0]
@@ -38,22 +40,36 @@ def symlink(this, to_this):
     this = tb.P(this)
     if this.exists():
         this.delete(are_you_sure=True)
-    this.symlink_to(to_this)
-    logger.warning(f"{this} ==> {to_this}")
+    elif not this.parent.exists():
+        this.parent.create()
+
+    try:
+        this.symlink_to(to_this)
+        print(f" Succesfully linked {this} ==> {to_this}")
+    except Exception as ex:
+        print(f"Failed at linking {this} ==> {to_this}. Reason: {ex}")
 
 
 class SSH:
+    """"""
     def __init__(self, orig=tb.P.home().joinpath(".ssh"), new=dat.joinpath(".ssh")):
         self.orig = orig
         self.backup = new
 
     def extract(self):
         for item in self.orig.search("*"):
-            item.move(self.orig.joinpath(item.name))
+            item.move(self.backup)
+        return self
 
     def link(self):
         for item in self.backup.search("*"):
             symlink(self.orig.joinpath(item.name), item)
+        return self
+
+
+class AWS(SSH):
+    def __init__(self, orig=tb.P.home().joinpath(".aws"), new=dat.joinpath("aws/.aws")):
+        super(AWS, self).__init__(orig, new)
 
 
 def link_pypi_and_global_git_config():
@@ -66,12 +82,12 @@ def link_crypto_source_of_truth():
             dat.joinpath("creds/crypto_source_of_truth.py"))
 
 
-def main():  # run all
-    retrieve_my_private_keys()
+def main():
+    """create symlinks in default locations to `my_private_keys` contents"""
     link_pypi_and_global_git_config()
-    link_crypto_source_of_truth()
     SSH().link()
+    AWS().link()
 
 
 if __name__ == '__main__':
-    retrieve_my_private_keys()
+    pass
