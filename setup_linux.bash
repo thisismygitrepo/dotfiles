@@ -1,6 +1,5 @@
 
-# This script assumes that my_private_keys and dotfiles have been copied successfully.
-
+# The following can run with no prerequisites:
 sudo apt update -y
 sudo apt upgrade -y
 sudo apt install git
@@ -10,9 +9,10 @@ sudo apt install git
 
 
 # miniconda
+sudo apt install wget
 wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh
 bash Miniconda3-py39_4.10.3-Linux-x86_64.sh -y
-. .bashrc  # reload to activate conda
+bash .bashrc  # reload to activate conda
 
 
 # no conda
@@ -27,6 +27,8 @@ pip install -r requirements.txt
 cd ..
 
 
+# ==========================================================
+# after having the private_keys, run this:
 python -m fire ~/code/dotfiles/create_symlinks.py main
 sudo chmod 600 ~/.ssh/id_ed25519
 
@@ -37,4 +39,4 @@ python -m fire ~/code/dotfiles/create_symlinks.py link_crypto_source_of_truth
 cd ~/code/crypto || exist
 pip install -r requirements.txt
 cd ~ || exist
-
+echo "All Done!"

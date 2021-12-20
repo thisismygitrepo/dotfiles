@@ -30,7 +30,7 @@ def retrieve_my_private_keys():
     path = input(f"path to key to decrypt keys folder (DONT'T use quotation marks nor raw prefix):")
     pw = tb.P(path)
     pw = pw.unzip().search("*")[0]
-    _, dec_file = tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/my_private_keys_encrypted.zip").decrypt(pw)
+    dec_file = tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/my_private_keys_encrypted.zip").decrypt(pw)
     dec_file.unzip(op_path=tb.P.home())
     dec_file.delete(are_you_sure=True)
 
