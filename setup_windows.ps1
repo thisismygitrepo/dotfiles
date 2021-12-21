@@ -5,15 +5,23 @@ winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesk
 # 2- Sign in to Chrome with G account, this will give access to LastPass, sign in to that as well.
 
 # IDEs
-winget install --name "anaconda3"
+# winget install --name "anaconda3"
+winget install --name miniconda3
 winget install --name "PyCharm Professional Edition"
 winget install --name "Node.js"
 winget install --name "julia" --Id "Julialang.Julia 1.6.2"
 winget install --name "DB Browser for SQLite"
 
 # Python: add conda to PATH, config terminals,
-set PATH=%PATH%;C:\ProgramData\Anaconda3
-set PATH=%PATH%;C:\ProgramData\Anaconda3\Scripts
+# set PATH=%PATH%;C:\ProgramData\Anaconda3
+# set PATH=%PATH%;C:\ProgramData\Anaconda3\Scripts
+# Conda by default do not contaminate global variables. instead, it provides two consoles, cmd and powershell
+# That have their local variables with conda in them. If you want conda in all consoles
+# The following contaminates all the global variables of the system with conda path
+# following this contamination, conda command is available everywhere, then, conda init can help configure
+# individual consoles so that its enviroments are accessible therein.
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$home/miniconda3/Scripts", "User")
+
 # # if windows-terminal doesn't accept modification, run this:
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
 conda init powershell

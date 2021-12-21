@@ -1,9 +1,19 @@
 
 """
-Manage enviroment path from Python.
+Manage Windows enviroment path from Python.
+
+Linux tips: https://superuser.com/questions/176783/what-is-the-difference-between-executing-a-bash-script-vs-sourcing-it
+Windows tips https://devblogs.microsoft.com/scripting/understanding-the-six-powershell-profiles/
+http://www.p-nand-q.com/download/gtools/pathed.html
+
+linux:
+a=b for one program
+export a=2  for one shell session and its child processes (Win set a=1)
 """
+
 import crocodile.toolbox as tb
-# see: `gci env:`
+# see: `gci env:` for all enviroment variables OR (set) (linux printenv)
+# see: `$env:Path` for Path variables.
 
 
 def temp_change_powershell(path, kind="append"):
