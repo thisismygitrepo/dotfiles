@@ -12,27 +12,16 @@ dat = tb.P.home().joinpath("my_private_keys")
 
 def backup_my_private_keys():
     """Encrypts and saves a copy of `my_private_keys` to OneDrive"""
-    print(f"Be wary of password saved in history. Do not run this in IPython.")
     key = input(f"Pass key if you have an old one, or press enter to create a new one")
-    key = key if key != "" else None
-    zipped = dat.zip()
-    pw_path, op_path = zipped.encrypt(key=key)
-    zipped.delete(are_you_sure=True)
+    key = None if key == "" else tb.P(key).find()
+    pw_path, op_path = dat.zip_and_cipher(secret=key, delete=False, security="encrypt", verbose=True)
     op_path.move(tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData"), overwrite=True)
-    final_path = pw_path.zip()
-    pw_path.delete(are_you_sure=True)
-    print(f"key saved @ {final_path.as_uri()}")
-    return final_path
+    return pw_path
 
 
 def retrieve_my_private_keys():
     """Decrypts and brings a copy of `my_private_keys` from OneDrive"""
-    path = input(f"path to key to decrypt keys folder (DONT'T use quotation marks nor raw prefix):")
-    pw = tb.P(path)
-    pw = pw.unzip().search("*")[0]
-    dec_file = tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/my_private_keys_encrypted.zip").decrypt(pw)
-    dec_file.unzip(op_path=tb.P.home())
-    dec_file.delete(are_you_sure=True)
+    tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/my_private_keys_encrypted.zip").decrypt(tb.P(input(f"path to key to decrypt keys folder (DONT'T use quotation marks nor raw prefix):")).unzip(delete=False, verbose=True).find()).unzip(op_path=tb.P.home(), delete=True, verbose=True)
 
 
 def symlink(this, to_this):

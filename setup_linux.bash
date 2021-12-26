@@ -12,7 +12,7 @@ sudo apt install git
 sudo apt install wget
 wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh
 bash Miniconda3-py39_4.10.3-Linux-x86_64.sh -y
-bash .bashrc  # reload to activate conda
+source .bashrc  # reload to activate conda
 # notice that on linux, the default is that miniconda will be added to PATH unlike windows where this is not recommended
 
 # no conda
