@@ -16,8 +16,7 @@ source .bashrc  # reload to activate conda
 # notice that on linux, the default is that miniconda will be added to PATH unlike windows where this is not recommended
 
 # no conda
-#sudo apt install python3-pip
-
+# sudo apt install python3-pip
 mkdir code
 cd ~/code || exit
 git clone https://github.com/thisismygitrepo/crocodile.git
@@ -29,7 +28,7 @@ cd ~ || exit
 
 # ==========================================================
 # after having the private_keys, run this:
-python -m fire ~/code/dotfiles/create_symlinks.py main
+python -m fire ~/code/dotfiles/create_symlinks.py link_all_to_my_private_keys
 sudo chmod 600 ~/.ssh/id_ed25519
 
 

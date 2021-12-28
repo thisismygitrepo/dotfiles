@@ -14,7 +14,7 @@ def backup_my_private_keys():
     """Encrypts and saves a copy of `my_private_keys` to OneDrive"""
     key = input(f"Pass key if you have an old one, or press enter to create a new one")
     key = None if key == "" else tb.P(key).find()
-    pw_path, op_path = dat.zip_and_cipher(secret=key, delete=False, security="encrypt", verbose=True)
+    pw_path, op_path = dat.zip_and_cipher(key=key, delete=False, verbose=True)
     op_path.move(tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData"), overwrite=True)
     return pw_path
 
@@ -71,7 +71,7 @@ def link_crypto_source_of_truth():
             dat.joinpath("creds/crypto_source_of_truth.py"))
 
 
-def main():
+def link_all_to_my_private_keys():
     """create symlinks in default locations to `my_private_keys` contents"""
     link_pypi_and_global_git_config()
     SSH().link()
