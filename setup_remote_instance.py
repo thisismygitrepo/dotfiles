@@ -30,7 +30,6 @@ def main():
     idx = 0
     machine = tb.Struct(inst[idx])
     client = tb.meta.SSH(hostname=machine.hostname, username=machine.username, ssh_key=machine.ssh)
-    client.copy_from_here(source="~/my_private_keys", zip_and_cipher=True)
     client.copy_from_here(source="~/code/dotfiles", zip_and_cipher=True)
     client.copy_from_here("./setup_linux.bash", target="~")
     # client.execute("bash setup_linux.bash")  # there is interactive prompt

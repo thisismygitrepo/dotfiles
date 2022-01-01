@@ -33,8 +33,7 @@ def symlink(this, to_this):
         this.parent.create()
 
     try:
-        this.symlink_to(to_this)
-        print(f" Succesfully linked {this} ==> {to_this}")
+        this.symlink_to(to_this, verbose=True)
     except Exception as ex:
         print(f"Failed at linking {this} ==> {to_this}. Reason: {ex}")
 
@@ -61,19 +60,24 @@ class AWS(SSH):
         super(AWS, self).__init__(orig, new)
 
 
-def link_pypi_and_global_git_config():
-    symlink(tb.P.home().joinpath(".pypirc"), dat.joinpath("creds/.pypirc"))
-    symlink(tb.P.home().joinpath(".gitconfig"), dat.joinpath("settings/.gitconfig"))
+def link_config():
+    for config in [".gitconfig"]:
+        symlink(tb.P.home().joinpath(config), dat.joinpath(f"settings/{config}"))
 
 
 def link_crypto_source_of_truth():
-    symlink(tb.P.home().joinpath("code/crypto/utils/source_of_truth.py"),
-            dat.joinpath("creds/crypto_source_of_truth.py"))
+    file = "crypto_source_of_truth.py"
+    symlink(tb.P.home().joinpath(f"code/crypto/utils/{file}"),
+            dat.joinpath(f"creds/{file}"))
+
+
+def link_pypi_creds():
+    symlink(tb.P.home().joinpath(".pypirc"), dat.joinpath("creds/.pypirc"))
 
 
 def link_all_to_my_private_keys():
     """create symlinks in default locations to `my_private_keys` contents"""
-    link_pypi_and_global_git_config()
+    link_config()
     SSH().link()
     AWS().link()
 

@@ -50,7 +50,7 @@ pip install -r ./crypto/requirements.txt
 winget install --name "notepad++"
 winget install --name "PuTTY"
 winget install --name "AWS Command Line Interface"
-winget install --name "Windows Terminal" --Id "Preview Microsoft.WindowsTerminal.Preview"
+winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget
 winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget
 winget install JanDeDobbeleer.OhMyPosh
 python -m fire "terminal_setup/install_fancy_terminal.py" install
