@@ -9,7 +9,7 @@ winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesk
 winget install --name miniconda3
 winget install --name "PyCharm Professional Edition"
 winget install --name "Node.js"
-winget install --name "julia" --Id "Julialang.Julia 1.6.2"
+winget install --name "julia" --Id "Julialang.Julia" --source winget
 winget install --name "DB Browser for SQLite"
 
 # Python: add conda to PATH, config terminals,

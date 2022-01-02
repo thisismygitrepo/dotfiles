@@ -2,7 +2,7 @@
 # The following can run with no prerequisites:
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install git
+sudo apt install git -Y
 # the equivalent of Windows Terminal: TMUX
 # From here: https://github.com/dhaneshsivasamy07/tmux_tweaks/blob/master/.tmux.conf
 curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/install.sh | sudo bash
@@ -12,7 +12,6 @@ sudo apt install tmux
 
 # conda
 #apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
-
 
 # miniconda
 sudo apt install wget
