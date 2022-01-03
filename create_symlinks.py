@@ -1,31 +1,27 @@
 
 """
 This script Takes away all config files from the computer, place them in one directory
-`my_private_keys`, and create symlinks to those files from thier original locations.
+`dotfiles`, and create symlinks to those files from thier original locations.
 """
 import crocodile.toolbox as tb
 
 
-dat = tb.P.home().joinpath("my_private_keys")
+dat = tb.P.home().joinpath("dotfiles")
 # logger = tb.Log(file=False)
 
 
-def retrieve_my_private_keys():
-    """Decrypts and brings a copy of `my_private_keys` from OneDrive"""
-    tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/my_private_keys_encrypted.zip").decrypt(tb.P(input(f"path to key to decrypt keys folder (DONT'T use quotation marks nor raw prefix):")).unzip(delete=False, verbose=True).find()).unzip(op_path=tb.P.home(), delete=True, verbose=True)
+def retrieve_dotfiles():
+    """Decrypts and brings a copy of `dotfiles` from OneDrive"""
+    tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/dotfiles_encrypted.zip").decrypt(tb.P(input(f"path to key to decrypt keys folder (DONT'T use quotation marks nor raw prefix):")).unzip(delete=False, verbose=True).find()).unzip(op_path=tb.P.home(), delete=True, verbose=True)
 
 
 def symlink(this, to_this):
     """helper function."""
     this = tb.P(this)
-    if this.exists():
-        this.delete(are_you_sure=True)
-    elif not this.parent.exists():
-        this.parent.create()
     try:
-        this.symlink_to(to_this, verbose=True)
+        this.symlink_to(to_this, verbose=True, delete=True)
     except Exception as ex:
-        print(f"Failed at linking {this} ==> {to_this}. Reason: {ex}")
+        print(f"Failed at linking {this} ==> {to_this}.\nReason: {ex}")
 
 
 class SSH:
@@ -67,8 +63,8 @@ def link_pypi_creds():
     symlink(tb.P.home().joinpath(".pypirc"), dat.joinpath("creds/.pypirc"))
 
 
-def link_all_to_my_private_keys():
-    """create symlinks in default locations to `my_private_keys` contents"""
+def link_all_to_dotfiles():
+    """create symlinks in default locations to `dotfiles` contents"""
     link_config()
     SSH().link()
     AWS().link()

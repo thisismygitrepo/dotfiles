@@ -33,7 +33,7 @@ cd ~ || exit
 
 # ==========================================================
 # after having the private_keys, run this:
-python -m fire ~/code/dotfiles/create_symlinks.py link_all_to_my_private_keys
+python -m fire ~/code/dotfiles/create_symlinks.py link_all_to_dotfiles
 sudo chmod 600 ~/.ssh/id_ed25519
 
 
