@@ -10,11 +10,6 @@ dat = tb.P.home().joinpath("dotfiles")
 # logger = tb.Log(file=False)
 
 
-def retrieve_dotfiles():
-    """Decrypts and brings a copy of `dotfiles` from OneDrive"""
-    tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/dotfiles_encrypted.zip").decrypt(tb.P(input(f"path to key to decrypt keys folder (DONT'T use quotation marks nor raw prefix):")).unzip(delete=False, verbose=True).find()).unzip(op_path=tb.P.home(), delete=True, verbose=True)
-
-
 def symlink(this, to_this):
     """helper function."""
     this = tb.P(this)
