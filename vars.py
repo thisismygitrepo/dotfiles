@@ -86,8 +86,8 @@ class Env:
     def permanet_path(path, which=["User", "Machine"][0]):
         if machine == "Windows":
             # AVOID THIS AND OPT TO SAVE IT IN $profile.
-            backup = fr'$env:path >> {tb.P.tmpfile()}.path_backup;'
-            command = fr'[Environment]::SetEnvironmentVariable("Path", $env:Path + ";{path}", "{which}")'
+            backup = fr'$env:PATH >> {tb.P.tmpfile()}.path_backup;'
+            command = fr'[Environment]::SetEnvironmentVariable("Path", $env:PATH + ";{path}", "{which}")'
             return backup + command
 
         else:

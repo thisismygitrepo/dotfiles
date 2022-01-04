@@ -21,7 +21,8 @@ def symlink(this, to_this):
 
 class SSH:
     """
-
+    id_ed25519 is the main one. Used in thisismygitrepo @ github & gitlab.
+    rsa is for work @ SALHN azure.
     """
     def __init__(self, orig=tb.P.home().joinpath(".ssh"), new=dat.joinpath(".ssh")):
         self.orig = orig
@@ -58,9 +59,10 @@ def link_pypi_creds():
     symlink(tb.P.home().joinpath(".pypirc"), dat.joinpath("creds/.pypirc"))
 
 
-def link_all_to_dotfiles():
+def main():
     """create symlinks in default locations to `dotfiles` contents"""
     link_config()
+    link_pypi_creds()
     SSH().link()
     AWS().link()
 

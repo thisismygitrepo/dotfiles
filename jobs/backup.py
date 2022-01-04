@@ -12,9 +12,8 @@ def backup_dotfiles(auto=True):
     else:
         key = dat.joinpath("creds/encrypted_files_key.bytes")
     # P("lastpass_export_2022_1_1.csv").encrypt(key="key.zip")
-    op_path = dat.zip_n_encrypt(key=key, delete=False, verbose=True)
-    op_path.move(tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData"), overwrite=True)
-    return op_path
+    # caveat: if there is more than onedrive account.
+    dat.zip_n_encrypt(key=key, delete=False, verbose=True).move(tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData"), overwrite=True)
 
 
 def retrieve_dotfiles(auto=True):
