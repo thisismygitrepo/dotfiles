@@ -11,7 +11,8 @@ def install():
     # Step 1: download the required fonts that has all the glyphs:
     folder = tb.P("https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip").download().unzip()
     # install the fonts.
-    txt = tb.P("install_fonts.ps1").read_text().replace(r".\fonts-to-be-installed", str(folder))
+
+    txt = tb.P(__file__).with_name("install_fonts.ps1").read_text().replace(r".\fonts-to-be-installed", str(folder))
     file = tb.P.tmpfile()
     file.write_text(txt)
     tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -file '{file}'")

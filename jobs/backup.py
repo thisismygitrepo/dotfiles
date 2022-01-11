@@ -25,7 +25,7 @@ def retrieve_dotfiles(auto=True):
         key = dat.joinpath("creds/encrypted_files_key.bytes")
     dotfiles = tb.P(tb.os.environ["ONEDRIVE"]).joinpath("AppData/dotfiles_encrypted.zip").copy(folder="~")
     # make sure to avoid doing decryption in the storage site.
-    dotfiles.decrypt(key=key).unzip(folder="~", inplace=True, verbose=True)
+    dotfiles.decrypt(key=key, inplace=True).unzip(folder="~", inplace=True, verbose=True)
 
 
 if __name__ == '__main__':
