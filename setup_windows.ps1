@@ -6,7 +6,7 @@ winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesk
 
 # IDEs
 # winget install --name "anaconda3"
-winget install --name miniconda3
+# winget install --name miniconda3
 winget install --name "PyCharm Professional Edition"
 winget install --name "Node.js"
 winget install --name "julia" --Id "Julialang.Julia" --source winget
@@ -20,13 +20,18 @@ winget install --name "DB Browser for SQLite"
 # The following contaminates all the global variables of the system with conda path
 # following this contamination, conda command is available everywhere, then, conda init can help configure
 # individual consoles so that its enviroments are accessible therein.
-[Environment]::SetEnvironmentVariable("Path", $env:Path + ";$home/miniconda3/Scripts", "User")
-
+# [Environment]::SetEnvironmentVariable("Path", $env:Path + ";$home/miniconda3/Scripts", "User")
 # # if windows-terminal doesn't accept modification, run this:
-Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
-conda init powershell
+# Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy Unrestricted
+# conda init powershell
 # pwsh -Command "conda init powershell"
-conda create --name ve python=3.9
+# conda create --name ve python=3.9
+
+winget install --name "Python 3.9" --source msstore  # system level python
+pip install virtualenv pipenv
+mkdir .virtualenv
+python -m venv "./.virtualenv/ve"
+# activate
 
 # git repos:
 winget install --name "Git"
