@@ -13,7 +13,7 @@ def install():
     # install the fonts.
 
     txt = tb.P(__file__).with_name("install_fonts.ps1").read_text().replace(r".\fonts-to-be-installed", str(folder))
-    file = tb.P.tmpfile()
+    file = tb.P.tmpfile(suffix=".ps1")
     file.write_text(txt)
     tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -file '{file}'")
 

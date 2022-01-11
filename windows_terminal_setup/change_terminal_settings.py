@@ -51,13 +51,13 @@ def customize_powershell(profs, dat):
 def add_ipyshell(profs):
     # Adding ipyshell if it is not there.
     # py_pr = tb.copy.deepcopy(pr)  # use it as a template for the new profile.
-    activate = input("How do you activate python on this machine from Powershell? "
-                     "ex1: conda activate ve; "
-                     "ex2: ~/envs/ve/Scripts/Activate.ps1\n")
+    activate = input("How do you activate python on this machine from Powershell? (Don't forget the `;`)"
+                     "ex1: conda activate ve;"
+                     "ex2: ~/envs/ve/Scripts/Activate.ps1;\n")
     ipyshell = dict(name="ipyshell",
                     guid="{" + str(uuid4()) + "}",
 
-                    commandline=f"powershell.exe -Command \"{activate}ipython -i -c 'from crocodile.toolbox import *'\"",
+                    commandline=f"powershell.exe -Command \"{activate} ipython -i -c 'from crocodile.toolbox import *'\"",
                     startingDirectory=None,  # "%USERPROFILE%",   # None
                     )
     # startingDirectory = None means: inheret from parent process, which will is the default, which point to /System32
