@@ -28,20 +28,25 @@ winget install --name "DB Browser for SQLite"
 # conda create --name ve python=3.9
 
 winget install --name "Python 3.9" --source msstore  # system level python
-pip install virtualenv pipenv
-mkdir .virtualenv
-python -m venv "./.virtualenv/ve"
+# OR:
+winget install --name "Python 3" --source winget  # latest
+python -m pip install --upgrade pip
+python -m pip install virtualenv
+mkdir ~/.virtualenvs
+cd ~
+python -m venv "./.virtualenvs/ve"  # ve will have same python version as `python`, where it.
 # activate
+~/.virtualenvs/ve/Scripts/Activate.ps1
 
 # git repos:
 winget install --name "Git"
 mkdir code
-cd code
 git clone https://github.com/thisismygitrepo/crocodile.git
-pip install -e ./crocodile  # local installation of crocodile (allows for development)
-pip install -r ./crocodile/requirements.txt  # not installed automatically by corocdile.
+
+cd ~/code/crocodile
+pip install -e .  # local installation of crocodile (allows for development)
+pip install -r requirements.txt  # not installed automatically by corocdile.
 cd ~
-conda activate ve
 
 # decryption:
 # why launching this in a separate thread?
@@ -49,14 +54,16 @@ python -m crocodile.run code/dotfiles/create_symlinks.py -f main --python
 
 
 git clone https://github.com/thisismygitrepo/crypto.git
-pip install -r ./crypto/requirements.txt
+cd ~/code/crypto  # you need to cd first then run pip because the latter doesn't understand "~"
+pip install -r requirements.txt
 
 # Shells
 winget install --name "notepad++"
-winget install --name "PuTTY"
-winget install --name "AWS Command Line Interface"
+# winget install --name "PuTTY"
+# winget install --name "AWS Command Line Interface"
 winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget
 winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget
+
 winget install JanDeDobbeleer.OhMyPosh
 python -m fire "terminal_setup/install_fancy_terminal.py" install
 # python -m fire "terminal_setup/install_fancy_terminal.py" choose

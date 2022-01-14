@@ -1,3 +1,4 @@
+import platform
 
 import crocodile.toolbox as tb
 from uuid import uuid4
@@ -40,6 +41,7 @@ def customize_powershell(profs, dat):
                 hidden=False,
                 guid="{" + str(uuid4()) + "}",
                 font=dict(face="CaskaydiaCove Nerd Font"),  # because oh-my-posh uses glyphs from this font.
+                startingDirectory="%USERPROFILE%",  # "%USERPROFILE%",   # None: inherent from parent process.
                 )
     if (res := profs.filter(lambda x: x["name"] == "PowerShell")).__len__() < 1:
         profs.append(pwsh)
@@ -51,14 +53,19 @@ def customize_powershell(profs, dat):
 def add_ipyshell(profs):
     # Adding ipyshell if it is not there.
     # py_pr = tb.copy.deepcopy(pr)  # use it as a template for the new profile.
-    activate = input("How do you activate python on this machine from Powershell? (Don't forget the `;`)"
+    activate = input("How do you activate python on this machine from Powershell? (Don't forget the `;`)\n"
                      "ex1: conda activate ve;"
-                     "ex2: ~/envs/ve/Scripts/Activate.ps1;\n")
+                     "ex2 (default): ~/.virtualenvs/ve/Scripts/Activate.ps1;\n")
+    if activate == "":
+        if platform.system() == "Windows":
+            activate = "~/.virtualenvs/ve/Scripts/Activate.ps1;"
+        elif platform.system() == "Linux":
+            activate = "~/.virtualenvs/ve/Scripts/activate;"
     ipyshell = dict(name="ipyshell",
                     guid="{" + str(uuid4()) + "}",
 
                     commandline=f"powershell.exe -Command \"{activate} ipython -i -c 'from crocodile.toolbox import *'\"",
-                    startingDirectory=None,  # "%USERPROFILE%",   # None
+                    startingDirectory="%USERPROFILE%",  # "%USERPROFILE%",   # None: inherent from parent process.
                     )
     # startingDirectory = None means: inheret from parent process, which will is the default, which point to /System32
     # Launching a new profile with ctr+shift+2 is equivalent to: wt --profile ipyshell -d . --new-tab
@@ -70,7 +77,9 @@ def add_ubuntu(profs):
     ubuntu = dict(name="Ubuntu",
                   commandline="wsl -d Ubuntu --cd ~",
                   hidden=False,
-                  guid="{" + str(uuid4()) + "}")
+                  guid="{" + str(uuid4()) + "}",
+                  startingDirectory="%USERPROFILE%",  # "%USERPROFILE%",   # None: inherent from parent process.
+                  )
     if profs.filter(lambda x: x["name"] == "Ubuntu").__len__() < 1: profs.append(ubuntu)
 
 

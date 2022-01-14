@@ -4,7 +4,7 @@ This script Takes away all config files from the computer, place them in one dir
 `dotfiles`, and create symlinks to those files from thier original locations.
 """
 import crocodile.toolbox as tb
-
+import platform
 
 dat = tb.P.home().joinpath("dotfiles")
 # logger = tb.Log(file=False)
@@ -14,7 +14,7 @@ def symlink(this, to_this):
     """helper function."""
     this = tb.P(this)
     try:
-        this.symlink_to(to_this, verbose=True, delete=True)
+        this.symlink_to(to_this, verbose=True, overwrite=True)
     except Exception as ex:
         print(f"Failed at linking {this} ==> {to_this}.\nReason: {ex}")
 
@@ -53,6 +53,11 @@ def link_crypto_source_of_truth():
     file = "crypto_source_of_truth.py"
     symlink(tb.P.home().joinpath(f"code/crypto/utils/{file}"),
             dat.joinpath(f"creds/{file}"))
+
+
+def link_scripts():
+    folder = {"Windows": "windows", "Linux": "linux"}[platform.system()]
+    symlink(tb.P.home().joinpath("scripts"), dat.joinpath(f"scripts/{folder}"))
 
 
 def link_pypi_creds():
