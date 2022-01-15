@@ -7,6 +7,14 @@ winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesk
 winget install --name "Git"
 # 2- Sign in to Chrome with G account, this will give access to LastPass, sign in to that as well.
 
+# productivity
+winget install --name "Mozilla Firefox"
+winget install --name "Mozilla Thunderbird"
+winget install --name "Microsoft Garage Mouse without Borders"
+winget install --name "VLC media player" --source "winget"
+
+#  winget install "sql server management studio"
+
 # IDEs
 # winget install --name "anaconda3"
 # winget install --name miniconda3
@@ -69,9 +77,13 @@ cd ~/code/crypto  # you need to cd first then run pip because the latter doesn't
 pip install -r requirements.txt
 
 
-# decryption:
-# why launching this in a separate thread?
-python -m crocodile.run code/dotfiles/create_symlinks.py -f main --python
+# =============================== KEYS & LINKS ============================================
+git clone https://github.com/thisismygitrepo/dotfiles
+start ($env:LOCALAPPDATA + "\Microsoft\OneDrive\onedrive.exe")
+cd ~/code/dotfiles
+python -m ./jobs/backup.py retrieve_dotfiles
+cd ~/code/dotfiles
+python -m crocodile.run ./create_symlinks.py -f main --python
 
 
 # ============================== Shells ===========================================
@@ -88,10 +100,3 @@ python -m fire "terminal_setup/install_fancy_terminal.py" install
 cd ~/code/dotfiles
 python "windows_terminal_setup/change_terminal_settings.py"
 
-# productivity
-winget install --name "Mozilla Firefox"
-winget install --name "Mozilla Thunderbird"
-winget install --name "Microsoft Garage Mouse without Borders"
-winget install --name "VLC media player" --source "winget"
-
-#  winget install "sql server management studio"
