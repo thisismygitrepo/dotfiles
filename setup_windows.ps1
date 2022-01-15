@@ -88,7 +88,7 @@ winget install --name "Git"
 git clone https://github.com/thisismygitrepo/dotfiles  # Choose browser-based authentication.
 start ($env:LOCALAPPDATA + "\Microsoft\OneDrive\onedrive.exe")
 cd ~/code/dotfiles
-python -m ./jobs/backup.py retrieve_dotfiles
+python -m fire ./jobs/backup.py retrieve_dotfiles
 cd ~/code/dotfiles
 python -m crocodile.run ./create_symlinks.py -f main --python
 

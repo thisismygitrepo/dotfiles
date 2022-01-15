@@ -44,7 +44,7 @@ class AWS(SSH):
         super(AWS, self).__init__(orig, new)
 
 
-def link_config():
+def link_gitconfig():
     for config in [".gitconfig"]:
         symlink(tb.P.home().joinpath(config), dat.joinpath(f"settings/{config}"))
 
@@ -66,8 +66,9 @@ def link_pypi_creds():
 
 def main():
     """create symlinks in default locations to `dotfiles` contents"""
-    link_config()
+    link_gitconfig()
     link_pypi_creds()
+    link_scripts()
     SSH().link()
     AWS().link()
 
