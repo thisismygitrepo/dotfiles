@@ -12,9 +12,8 @@ dat = tb.P.home().joinpath("dotfiles")
 
 def symlink(this, to_this):
     """helper function."""
-    this = tb.P(this)
     try:
-        this.symlink_to(to_this, verbose=True, overwrite=True)
+        tb.P(this).symlink_to(to_this, verbose=True, overwrite=True)
     except Exception as ex:
         print(f"Failed at linking {this} ==> {to_this}.\nReason: {ex}")
 

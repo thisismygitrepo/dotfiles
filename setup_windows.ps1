@@ -2,6 +2,7 @@
 # A - install chrome, sign in Google, sync profile, sign in to LastPass
 # B - Head to github.com/thisismygitrepo/dotfiles and clone it to ~/code
 # C - Download key.zip from lastplass/my_private_keys
+# E - Start Powershell with elevated status, and:
 # D - On the website open this file, and start execting as appropriate by copy pasting.
 
 # ================================= APPS ================================================
@@ -21,6 +22,7 @@ winget install --name "VLC media player" --source "winget"
 # IDEs
 # winget install --name "anaconda3"
 # winget install --name miniconda3
+winget install --name "Microsoft Visual Studio Code" --Id "Microsoft.VisualStudioCode" --source winget
 winget install --name "PyCharm Professional Edition"
 winget install --name "Node.js"
 winget install --name "julia" --Id "Julialang.Julia" --source winget
@@ -90,7 +92,7 @@ start ($env:LOCALAPPDATA + "\Microsoft\OneDrive\onedrive.exe")
 cd ~/code/dotfiles
 python -m fire ./jobs/backup.py retrieve_dotfiles
 cd ~/code/dotfiles
-python -m crocodile.run ./create_symlinks.py -f main --python
+python -m fire./create_symlinks.py main
 
 
 # ============================== Shells ===========================================

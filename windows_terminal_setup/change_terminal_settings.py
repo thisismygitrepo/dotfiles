@@ -43,10 +43,13 @@ def customize_powershell(profs, dat):
                 font=dict(face="CaskaydiaCove Nerd Font"),  # because oh-my-posh uses glyphs from this font.
                 startingDirectory="%USERPROFILE%",  # "%USERPROFILE%",   # None: inherent from parent process.
                 )
-    if (res := profs.filter(lambda x: x["name"] == "PowerShell")).__len__() < 1:
-        profs.append(pwsh)
+
+    for idx, item in enumerate(profs):
+        if item["name"] == "PowerShell":
+            profs[idx].update(pwsh)
+            break
     else:
-        res[0].update(pwsh)
+        profs.append(pwsh)
     dat["defaultProfile"] = pwsh["guid"]
 
 
