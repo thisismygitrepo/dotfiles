@@ -55,12 +55,12 @@ def add_ipyshell(profs):
     # py_pr = tb.copy.deepcopy(pr)  # use it as a template for the new profile.
     activate = input("How do you activate python on this machine from Powershell? (Don't forget the `;`)\n"
                      "ex1: conda activate ve;"
-                     "ex2 (default): ~/.virtualenvs/ve/Scripts/Activate.ps1;\n")
+                     "ex2 (default): ~/venvs/ve/Scripts/Activate.ps1;\n")
     if activate == "":
         if platform.system() == "Windows":
-            activate = "~/.virtualenvs/ve/Scripts/Activate.ps1;"
+            activate = "~/venvs/ve/Scripts/Activate.ps1;"
         elif platform.system() == "Linux":
-            activate = "~/.virtualenvs/ve/Scripts/activate;"
+            activate = "~/venvs/ve/Scripts/activate;"
     ipyshell = dict(name="ipyshell",
                     guid="{" + str(uuid4()) + "}",
 

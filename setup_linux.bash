@@ -23,10 +23,10 @@ source .bashrc  # reload to activate conda
 
 # no conda
 sudo apt install python3.9  # ignore system level one. launched with `python39`, as opposed to `python`
-mkdir ~/.virtualenvs
-cd ~/.virtualenvs/ || exit
-python39 -m venv ve
-
+mkdir ~/venvs/
+cd ~/venvs/ || exit
+python39 -m virtualenv ve
+~/venvs/ve/Scripts/activate
 
 mkdir code
 cd ~/code || exit

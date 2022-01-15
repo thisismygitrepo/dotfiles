@@ -66,10 +66,22 @@ class EnvVar:
         return f"${key}"  # works in powershell and bash
     # in windows cmd `%key%`
 
+    @staticmethod
+    def delete(key, temp=True, scope=["User", "Machine"][0]):
+        if machine == "Windows":
+            if temp:
+                return fr"Remove-Item Env:\{key}"  # temporary removal (session)
+            else:
+                return fr'[Environment]::SetEnvironmentVariable("{key}",$null,"{scope}")'
+        else:
+            raise NotImplementedError
+
+
+
 
 class Env:
     @staticmethod
-    def temp_path(path, kind="append"):
+    def append_temporarily(path, kind="append"):
         if machine == "Windows":
             """Source: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.2"""
             if kind == "append":  # Append to the Path variable in the current window:
@@ -80,18 +92,25 @@ class Env:
                 command = fr'$env:Path = "{path}"'
             else: raise KeyError
             return command
+
         else: return f'export PATH="{path}:$PATH"'
 
     @staticmethod
-    def permanet_path(path, which=["User", "Machine"][0]):
+    def append_permanently(path, scope=["User", "Machine"][0]):
         if machine == "Windows":
             # AVOID THIS AND OPT TO SAVE IT IN $profile.
             backup = fr'$env:PATH >> {tb.P.tmpfile()}.path_backup;'
-            command = fr'[Environment]::SetEnvironmentVariable("Path", $env:PATH + ";{path}", "{which}")'
+            command = fr'[Environment]::SetEnvironmentVariable("Path", $env:PATH + ";{path}", "{scope}")'
             return backup + command
 
         else:
             tb.P.home().joinpath(".bashrc").append_text(f"export PATH='{path}:$PATH'")
+
+    @staticmethod
+    def set_permanetly(path, scope=["User", "Machine"][0]):
+        """This is useful if path is manipulated with a text editor or Python string manipulation
+        (not recommended programmatically even if original is backed up) and set the final value."""
+        return fr'[Environment]::SetEnvironmentVariable("Path", "{path}", "{scope}")'
 
 
 if __name__ == '__main__':
