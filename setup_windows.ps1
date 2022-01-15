@@ -17,7 +17,7 @@ winget install --name "Mozilla Thunderbird"
 winget install --name "Microsoft Garage Mouse without Borders"
 winget install --name "VLC media player" --source "winget"
 
-#  winget install "sql server management studio"
+# winget install "sql server management studio"
 
 # IDEs
 # winget install --name "anaconda3"

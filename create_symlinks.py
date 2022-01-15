@@ -68,6 +68,7 @@ def main():
     link_gitconfig()
     link_pypi_creds()
     link_scripts()
+    link_crypto_source_of_truth()
     SSH().link()
     AWS().link()
 
