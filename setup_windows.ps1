@@ -1,10 +1,13 @@
 
+# A - install chrome, sign in Google, sync profile, sign in to LastPass
+# B - Head to github.com/thisismygitrepo/dotfiles and clone it to ~/code
+# C - Download key.zip from lastplass/my_private_keys
+# D - On the website open this file, and start execting as appropriate by copy pasting.
 
 # ================================= APPS ================================================
 # 1- Getting Started
 winget install --name "Google Chrome" --Id "Google.Chrome" --source winget
 winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesktop" --source winget
-winget install --name "Git"
 # 2- Sign in to Chrome with G account, this will give access to LastPass, sign in to that as well.
 
 # productivity
@@ -63,6 +66,7 @@ python -m pip install --upgrade pip  # upgrades the pip that is within the envir
 
 # ====================== REPOS ======================================
 # git repos:
+cd ~
 mkdir code
 git clone https://github.com/thisismygitrepo/crocodile.git
 
@@ -71,14 +75,17 @@ pip install -e .  # local installation of crocodile (allows for development)
 pip install -r requirements.txt  # not installed automatically by corocdile.
 cd ~
 
+cd ~/code
 git clone https://github.com/thisismygitrepo/crypto.git
-
 cd ~/code/crypto  # you need to cd first then run pip because the latter doesn't understand "~"
 pip install -r requirements.txt
 
 
 # =============================== KEYS & LINKS ============================================
-git clone https://github.com/thisismygitrepo/dotfiles
+# step1: install
+# on the browser, got to www.github.com/thisismygitrepo/dotfiles
+winget install --name "Git"
+git clone https://github.com/thisismygitrepo/dotfiles  # Choose browser-based authentication.
 start ($env:LOCALAPPDATA + "\Microsoft\OneDrive\onedrive.exe")
 cd ~/code/dotfiles
 python -m ./jobs/backup.py retrieve_dotfiles
@@ -87,10 +94,11 @@ python -m crocodile.run ./create_symlinks.py -f main --python
 
 
 # ============================== Shells ===========================================
-winget install --name "notepad++"
+winget install --name "notepad++" --source winget
 # winget install --name "PuTTY"
 # winget install --name "AWS Command Line Interface"
-winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget
+#winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget
+# Terminal is is installed by default on W 11
 winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget
 
 # ==== Fancy shell:
