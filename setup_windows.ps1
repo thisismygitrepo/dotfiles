@@ -57,7 +57,7 @@ winget install --name "Python 3.9" --source msstore  #
 #winget install --name "Python 3" --source winget  # latest, not good, unpredictable.
 
 python3.9 -m pip install --upgrade pip
-python3.9 -m pip install virtualenv
+python3.9 -m pip install venv
 mkdir ~/venvs
 cd ~
 python3.9 -m venv "./venvs/ve"  # ve will have same python version as `python`, where it.

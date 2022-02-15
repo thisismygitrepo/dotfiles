@@ -3,16 +3,21 @@
 # on the linux machine:
 sudo apt install openssh-server
 # locally
-sftp alex@alex-machine  # put in password for once
+sftp alex@salhn-thinkpad  # put in password for once
+# !!
 mkdir .ssh
 cd .ssh || exit
-put ./ssh/id_rsa.pub
-cat ./ssh/id_rsa.pub > authorized_keys
+put ./.ssh/id_rsa.pub
+exit  # sftp doesn't support cat command.
+
+cat id_rsa.pub > authorized_keys
 
 
 # The following can run with no prerequisites:
 # when there is a !! sign, means the command before it requires input, putting another command behind it
 # will cause it to fail
+ssh alex@salhn-thinkpad
+# !!
 sudo apt update
 sudo apt upgrade
 sudo apt install git
@@ -23,7 +28,6 @@ cd ~ || exit
 curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/tmux.conf > .tmux.conf
 sudo apt install tmux  # allows multiple terminals that are persistent.
 # !!
-sudo apt install openssh-server  # allows SSHing to this machine.
 
 # conda
 #apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
@@ -39,10 +43,9 @@ sudo apt install openssh-server  # allows SSHing to this machine.
 sudo apt install python3.9  # ignore system level one. launched with `python39`, as opposed to `python`
 python39
 #!!
-python3.9 -m pip install virtualenv
 mkdir ~/venvs/
 cd ~/venvs/ || exit
-python3.9 -m virtualenv ve
+python3.9 -m venv ve
 cd ~ || exit
 source venvs/ve/bin/activate
 

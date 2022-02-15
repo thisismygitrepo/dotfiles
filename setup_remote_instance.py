@@ -6,6 +6,11 @@ This is the first file that should you should to setup a new machine once you ge
 import crocodile.toolbox as tb
 
 inst = [
+    dict(
+        hostname="salhn-thinkpad",
+        username="alex",
+        ssh=None,
+    ),
     # notes="t2.micro",
     dict(
         hostname="ec2-13-239-0-67.ap-southeast-2.compute.amazonaws.com",
