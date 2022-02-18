@@ -5,6 +5,8 @@
 # E - Start Powershell with elevated status, and:
 # D - On the website open this file, and start execting as appropriate by copy pasting.
 
+# to get exact version in winget: https://winget.run
+
 # ================================= APPS ================================================
 # 1- Getting Started
 winget install --name "Google Chrome" --Id "Google.Chrome" --source winget
@@ -50,12 +52,9 @@ Ubuntu  # this will install it, you will be prompted for user name and password.
 
 
 # =============================== PYTHON =================================================
-winget install --name "Python 3.9" --source msstore  #
-# this installs python @ C:\Users\Alex\AppData\Local\Microsoft\WindowsApps\python3.9.exe
-# However, there might be other pythons installed there, so it is better to specify python3.9, pip3.9
-# Keep this practice until you activate the virtual environment.
+winget install -e --id Python.Python.3 -v 3.9.7150.0
 # OR:
-#winget install --name "Python 3" --source winget  # latest, not good, unpredictable.
+#winget install --name "Python 3" --source winget  # gives the latest python
 
 python3.9 -m pip install --upgrade pip
 python3.9 -m pip install venv
