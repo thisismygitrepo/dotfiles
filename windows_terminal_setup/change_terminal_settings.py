@@ -42,8 +42,8 @@ class TerminalSettings(object):
         pwsh = dict(name="PowerShell",
                     commandline="pwsh",
                     hidden=False,
-                    guid="{" + str(uuid4()) + "}",
-                    font=dict(face="CaskaydiaCove Nerd Font"),  # because oh-my-posh uses glyphs from this font.
+                    # guid="{" + str(uuid4()) + "}",  # WT doesn't accept any GUID to identify pwsh
+                    # font=dict(face="CaskaydiaCove Nerd Font"),  # because oh-my-posh uses glyphs from this font.
                     startingDirectory="%USERPROFILE%",  # "%USERPROFILE%",   # None: inherent from parent process.
                     )
 
@@ -52,8 +52,8 @@ class TerminalSettings(object):
                 self.profs[idx].update(pwsh)
                 break
         else:
-            self.profs.append(pwsh)
-        self.dat["defaultProfile"] = pwsh["guid"]
+            # self.profs.append(pwsh)
+            print(f"Couldn't customize powershell because profile not found, try to install it first.")
 
     def make_powershell_default_profile(self):
         for profile in self.profs:
@@ -64,28 +64,28 @@ class TerminalSettings(object):
         else:
             print("Powershell profile was not found in the list of profile and therefore was not made the deafult.")
 
-    def add_ipyshell(self):
-        # Adding ipyshell if it is not there.
+    def add_croshell(self):
+        # Adding croshell if it is not there.
         # py_pr = tb.copy.deepcopy(pr)  # use it as a template for the new profile.
         if platform.system() == "Windows":
             activate = "~/venvs/ve/Scripts/Activate.ps1;"
         elif platform.system() == "Linux":
             activate = "~/venvs/ve/Scripts/activate;"
         else: raise SystemError("Unsupported OS.")
-        ipyshell = dict(name="ipyshell",
+        croshell = dict(name="croshell",
                         guid="{" + str(uuid4()) + "}",
-
-                        commandline=f"powershell.exe -Command \"{activate} ipython -i -c 'from crocodile.toolbox import *'\"",
+                        # commandline=f"powershell.exe -Command \"{activate} ipython -i -c 'from crocodile.toolbox import *'\"",
+                        commandline=f"powershell.exe -Command \"{activate} ipython -i -m crocodile.croshell\"",
                         startingDirectory="%USERPROFILE%",  # "%USERPROFILE%",   # None: inherent from parent process.
                         )
         # startingDirectory = None means: inheret from parent process, which will is the default, which point to /System32
-        # Launching a new profile with ctr+shift+2 is equivalent to: wt --profile ipyshell -d . --new-tab
+        # Launching a new profile with ctr+shift+2 is equivalent to: wt --profile croshell -d . --new-tab
         for profile in self.profs:
-            if profile["name"] == "ipyshell":
-                profile.update(ipyshell)
+            if profile["name"] == "croshell":
+                profile.update(croshell)
                 break
         else:
-            self.profs.append(ipyshell)
+            self.profs.append(croshell)
 
     def add_ubuntu(self):
         # Add Ubunto if it is not there.
@@ -99,15 +99,29 @@ class TerminalSettings(object):
 
     def standardize_profiles_order(self):
         # Changing order of profiles:
-        tmp = [
-            self.profs.filter(lambda x: x["name"] == "PowerShell")[0],  # 1. commandline = pwsh.exe
-            self.profs.filter(lambda x: x["name"] == "ipyshell")[0],  # 2.
-            self.profs.filter(lambda x: x["name"] == "Ubuntu")[0],  # 3.
-            self.profs.filter(lambda x: x["name"] == "Windows PowerShell")[0],  # 4. name =  powershell.exe
-            self.profs.filter(lambda x: x["name"] == "Command Prompt")[0],  # 5. name = cmd.exe
-            # profs.filter(lambda x: x["name"] == "Azure Cloud Shell")[0]  # 6.
-        ]
-        self.dat["profiles"]["list"] = tmp
+        others = []
+        pwsh = croshell = ubuntu = wpwsh = cmd = azure = None
+        for profile in self.profs:
+            name = profile["name"]
+            if name == "PowerShell":
+                pwsh = profile
+            elif name == "croshell":
+                croshell = profile
+            elif name == "Ubuntu":
+                ubuntu = profile
+            elif name == "Windows PowerShell":
+                wpwsh = profile
+            elif name == "Command Prompt":
+                cmd = profile
+            elif name == "Azure Cloud Shell":
+                azure = profile
+            else:
+                others.append(profile)
+        result = []
+        for item in [pwsh, croshell, ubuntu, wpwsh, cmd, azure] + others:
+            if item is not None:
+                result.append(item)
+        self.profs = result
 
 
 def main():
@@ -115,7 +129,7 @@ def main():
     ts.update_default_settings()
     ts.customize_powershell()
     ts.make_powershell_default_profile()
-    ts.add_ipyshell()
+    ts.add_croshell()
     ts.add_ubuntu()
     ts.standardize_profiles_order()
     ts.save_terminal_settings()
