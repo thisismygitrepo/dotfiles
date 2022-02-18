@@ -10,6 +10,7 @@
 winget install --name "Google Chrome" --Id "Google.Chrome" --source winget
 winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesktop" --source winget
 # 2- Sign in to Chrome with G account, this will give access to LastPass, sign in to that as well.
+# winget search "Microsoft Teams" --Id "Microsoft.Teams" --Source winget
 
 # productivity
 winget install --name "Mozilla Firefox"

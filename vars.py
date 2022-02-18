@@ -77,8 +77,6 @@ class EnvVar:
             raise NotImplementedError
 
 
-
-
 class Env:
     @staticmethod
     def append_temporarily(path, kind="append"):
