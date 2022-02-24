@@ -47,7 +47,7 @@ cd ~/venvs/ || exit
 apt install python3.9-venv
 python3.9 -m venv ve
 cd ~ || exit
-source venvs/ve/bin/activate
+source ~/venvs/ve/bin/activate || exit
 
 
 cd ~ || exit
