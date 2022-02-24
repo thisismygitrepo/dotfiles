@@ -3,13 +3,12 @@
 # on the linux machine:
 sudo apt install openssh-server
 # locally
-sftp alex@salhn-thinkpad  # put in password for once
+sftp username@hostname  # put in password for once
 # !!
 mkdir .ssh
 cd .ssh || exit
 put ./.ssh/id_rsa.pub
 exit  # sftp doesn't support cat command.
-
 cat id_rsa.pub > authorized_keys
 
 
@@ -45,6 +44,7 @@ python39
 #!!
 mkdir ~/venvs/
 cd ~/venvs/ || exit
+apt install python3.9-venv
 python3.9 -m venv ve
 cd ~ || exit
 source venvs/ve/bin/activate
@@ -66,12 +66,4 @@ cd ~ || exit
 # SSH(creds).copy_from_here("~/dcode/dotfiles")
 python -m fire ~/code/dotfiles/create_symlinks.py main
 sudo chmod 600 ~/.ssh/id_ed25519
-
-
-cd ~/code || exit
-git clone git@github.com:thisismygitrepo/crypto.git
-# git clone git@github.com:thisismygitrepo/crypto.git
-cd ~/code/crypto || exist
-pip install -r requirements.txt
-cd ~ || exist
 echo "All Done!"

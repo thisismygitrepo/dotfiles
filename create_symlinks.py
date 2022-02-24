@@ -48,12 +48,6 @@ def link_gitconfig():
         symlink(tb.P.home().joinpath(config), dat.joinpath(f"settings/{config}"))
 
 
-def link_crypto_source_of_truth():
-    file = "crypto_source_of_truth.py"
-    symlink(tb.P.home().joinpath(f"code/crypto/utils/{file}"),
-            dat.joinpath(f"creds/{file}"))
-
-
 def link_scripts():
     folder = {"Windows": "windows", "Linux": "linux"}[platform.system()]
     symlink(tb.P.home().joinpath("scripts"), dat.joinpath(f"scripts/{folder}"))
@@ -68,7 +62,6 @@ def main():
     link_gitconfig()
     link_pypi_creds()
     link_scripts()
-    link_crypto_source_of_truth()
     SSH().link()
     AWS().link()
 

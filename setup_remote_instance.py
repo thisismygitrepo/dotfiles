@@ -5,35 +5,10 @@ This is the first file that should you should to setup a new machine once you ge
 
 import crocodile.toolbox as tb
 
-inst = [
-    dict(
-        hostname="salhn-thinkpad",
-        username="alex",
-        ssh=None,
-    ),
-    # notes="t2.micro",
-    dict(
-        hostname="ec2-13-239-0-67.ap-southeast-2.compute.amazonaws.com",
-        username="ubuntu",
-        ssh=tb.P.home().joinpath(r"dotfiles\aws\instances\aws_sydney_ec2.pem"),
-    ),
-    # notes="t2.micro-redhat"
-    dict(hostname="ec2-54-253-183-178.ap-southeast-2.compute.amazonaws.com",
-         username="ec2-user",
-         ssh=tb.P.home().joinpath(r"dotfiles\aws\instances\aws_sydney_ec2.pem")
-         ),
-
-    # "Google 32GB v8 machine, valid till 20th Jan"
-    dict(hostname="34.87.239.6",
-         username="alex_ssh_keys",
-         ssh=None, )
-]
-
 
 def main():
     """Copy my_private_files and dotfiles repo over to the remote machine."""
-    idx = 0
-    machine = tb.Struct(inst[idx])
+    machine = tb.Struct(hostname="flask-server", username="alex", ssh_key=None)
     client = tb.meta.SSH(hostname=machine.hostname, username=machine.username, ssh_key=machine.ssh)
     client.copy_from_here(source="~/code/dotfiles", zip_n_encrypt=True)
     client.copy_from_here("./setup_linux.bash", target="~")

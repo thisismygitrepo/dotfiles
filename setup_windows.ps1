@@ -18,7 +18,7 @@ winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesk
 winget install --name "Mozilla Firefox"
 winget install --name "Mozilla Thunderbird"
 winget install --name "Microsoft Garage Mouse without Borders"
-winget install --name "VLC media player" --source "winget"
+#winget install --name "VLC media player" --source "winget"
 
 # winget install "sql server management studio"
 
@@ -76,12 +76,6 @@ cd ~/code/crocodile
 pip install -e .  # local installation of crocodile (allows for development)
 pip install -r requirements.txt  # not installed automatically by corocdile.
 cd ~
-
-cd ~/code
-git clone https://github.com/thisismygitrepo/crypto.git
-cd ~/code/crypto  # you need to cd first then run pip because the latter doesn't understand "~"
-pip install -r requirements.txt
-
 
 # =============================== KEYS & LINKS ============================================
 # step1: install
