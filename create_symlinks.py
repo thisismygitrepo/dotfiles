@@ -50,7 +50,7 @@ def link_gitconfig():
 
 def link_scripts():
     folder = {"Windows": "windows", "Linux": "linux"}[platform.system()]
-    symlink(tb.P.home().joinpath("scripts"), dat.joinpath(f"scripts/{folder}"))
+    symlink(tb.P.home().joinpath("scripts"), tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}"))
 
 
 def link_pypi_creds():
