@@ -1,6 +1,5 @@
 
 # A - install chrome, sign in Google, sync profile, sign in to LastPass
-# B - Head to github.com/thisismygitrepo/dotfiles and clone it to ~/code
 # C - Download key.zip from lastplass/my_private_keys
 # E - Start Powershell with elevated status, and:
 # D - On the website open this file, and start execting as appropriate by copy pasting.
@@ -52,6 +51,7 @@ Ubuntu  # this will install it, you will be prompted for user name and password.
 
 
 # =============================== PYTHON =================================================
+winget install --name "Git"
 winget install -e --id Python.Python.3 -v 3.9.7150.0
 # OR:
 #winget install --name "Python 3" --source winget  # gives the latest python
@@ -65,11 +65,11 @@ python3.9 -m venv "./venvs/ve"  # ve will have same python version as `python`, 
 ~/venvs/ve/Scripts/Activate.ps1
 python -m pip install --upgrade pip  # upgrades the pip that is within the environment.
 
-
 # ====================== REPOS ======================================
 # git repos:
 cd ~
 mkdir code
+cd code
 git clone https://github.com/thisismygitrepo/crocodile.git
 
 cd ~/code/crocodile
@@ -78,9 +78,6 @@ pip install -r requirements.txt  # not installed automatically by corocdile.
 cd ~
 
 # =============================== KEYS & LINKS ============================================
-# step1: install
-# on the browser, got to www.github.com/thisismygitrepo/dotfiles
-winget install --name "Git"
 git clone https://github.com/thisismygitrepo/dotfiles  # Choose browser-based authentication.
 start ($env:LOCALAPPDATA + "\Microsoft\OneDrive\onedrive.exe")
 cd ~/code/dotfiles

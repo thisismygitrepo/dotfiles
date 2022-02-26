@@ -18,10 +18,16 @@ def install():
     tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -file '{file}'")
 
     # Step 2: change the profile of the terminal such that it autoloads oh-my-posh
+    from windows_terminal_setup.change_terminal_settings import TerminalSettings
+    ts = TerminalSettings()
+    ts.customize_powershell(nerd_font=True)
+    ts.save_terminal_settings()
+
+    # Step 3: install oh-my-posh
     # use this if you want to customize Windows Powershell:  console=powershell
     profile_path = tb.P(tb.Terminal().run("$profile", shell="pwsh").op.rstrip())
     theme_path = tb.P.home().joinpath(r"AppData\Local\Programs\oh-my-posh\themes")
-    txt = f"oh-my-posh --init --shell pwsh --config {theme_path}/atomicBit.omp.json | Invoke-Expression"
+    txt = f"oh-my-posh --init --shell pwsh --config {theme_path}\\atomicBit.omp.json | Invoke-Expression"
     profile_path.modify_text(txt="oh-my-posh", alt=txt, newline=True)
     # see also an eviroment profile called current theme of oh my posh
 

@@ -38,14 +38,15 @@ class TerminalSettings(object):
 
     # 1- Customizing Powershell========================================================
     # as opposed to Windows Powershell
-    def customize_powershell(self):
+    def customize_powershell(self, nerd_font=False):
         pwsh = dict(name="PowerShell",
                     commandline="pwsh",
                     hidden=False,
                     # guid="{" + str(uuid4()) + "}",  # WT doesn't accept any GUID to identify pwsh
-                    # font=dict(face="CaskaydiaCove Nerd Font"),  # because oh-my-posh uses glyphs from this font.
                     startingDirectory="%USERPROFILE%",  # "%USERPROFILE%",   # None: inherent from parent process.
                     )
+        if nerd_font:
+            pwsh["font"] = dict(face="CaskaydiaCove Nerd Font")  # because oh-my-posh uses glyphs from this font.
 
         for idx, item in enumerate(self.profs):
             if item["name"] == "PowerShell":

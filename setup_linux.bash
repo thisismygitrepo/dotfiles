@@ -38,9 +38,9 @@ sudo apt install tmux  # allows multiple terminals that are persistent.
 #source .bashrc  # reload to activate conda
 ## notice that on linux, the default is that miniconda will be added to PATH unlike windows where this is not recommended
 
-# no conda
 sudo apt install python3.9  # ignore system level one. launched with `python39`, as opposed to `python`
-python39
+#python39
+
 #!!
 mkdir ~/venvs/
 cd ~/venvs/ || exit
