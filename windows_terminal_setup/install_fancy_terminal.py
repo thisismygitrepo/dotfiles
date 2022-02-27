@@ -27,7 +27,7 @@ def install():
     # use this if you want to customize Windows Powershell:  console=powershell
     profile_path = tb.P(tb.Terminal().run("$profile", shell="pwsh").op.rstrip())
     theme_path = tb.P.home().joinpath(r"AppData\Local\Programs\oh-my-posh\themes")
-    txt = f"oh-my-posh --init --shell pwsh --config {theme_path}\\atomicBit.omp.json | Invoke-Expression"
+    txt = f"oh-my-posh --init --shell pwsh --config {theme_path}\\jandedobbeleer.omp.json | Invoke-Expression"
     profile_path.modify_text(txt="oh-my-posh", alt=txt, newline=True)
     # see also an eviroment profile called current theme of oh my posh
 
