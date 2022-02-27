@@ -9,6 +9,7 @@ winget install --name "Google Chrome" --Id "Google.Chrome" --source winget
 # winget search "Microsoft Teams" --Id "Microsoft.Teams" --Source winget
 
 # productivity
+winget install --name "7-zip" --Id "7zip.7zip" --source winget
 winget install --name "Mozilla Firefox"
 winget install --name "Mozilla Thunderbird"
 winget install --name "Microsoft Garage Mouse without Borders"
