@@ -15,7 +15,7 @@ def install():
     txt = tb.P(__file__).with_name("install_fonts.ps1").read_text().replace(r".\fonts-to-be-installed", str(folder))
     file = tb.P.tmpfile(suffix=".ps1")
     file.write_text(txt)
-    tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -file '{file}'")
+    tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -file \"{file}\"")
 
     # Step 2: change the profile of the terminal such that it autoloads oh-my-posh
     from windows_terminal_setup.change_terminal_settings import TerminalSettings
