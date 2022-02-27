@@ -38,7 +38,8 @@ def choose():
     """
     tb.P("https://ohmyposh.dev/docs/themes").start()
     # replace ~/jan... with full path to theme. use: start $profile
-    name = input(f"A chrome tab with styles is opened, choose one and put its name here: ")
+    name = input(f"A chrome tab with styles is opened, choose one and put its name here: [jandedobbeleer] ")
+    name = name or "jandedobbeleer"
     path = tb.P(tb.Terminal().run("$profile", shell="pwsh").op.rstrip())
     # or tb.os.environ["POSH_THEME"] (only available in pwsh shell, not in cmd)
     theme_path = tb.P(tb.Terminal().run("$env:POSH_THEME", shell='pwsh').op.rstrip())

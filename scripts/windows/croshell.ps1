@@ -1,3 +1,3 @@
 
 ~/venvs/ve/Scripts/Activate.ps1
-ipython -i -m crocodile.croshell
+ipython -i --no-banner --term-title CROSHELL --autocall 1 -m crocodile.croshell

@@ -16,16 +16,18 @@ def push_one(path):
     print(f"Pushing {path}".center(80, "-"))
     remotes = tm.run(f"cd {path}; git remote", shell="powershell").op.split("\n")
     for remote in remotes:
-        res = tm.run(f'cd {path}; git push {remote}', shell="powershell")
-        res.print()
+        if remote != "":
+            res = tm.run(f'cd {path}; git push {remote}', shell="powershell")
+            res.print()
 
 
 def pull_one(path):
     print(f"Pulling {path}".center(80, "-"))
     remotes = tm.run(f"cd {path}; git remote", shell="powerpsshell").op.split("\n")
     for remote in remotes:
-        res = tm.run(f'cd {path}; git pull {remote}', shell="powershell")
-        res.print()
+        if remote != "":
+            res = tm.run(f'cd {path}; git pull {remote}', shell="powershell")
+            res.print()
 
 
 def commit_all():
