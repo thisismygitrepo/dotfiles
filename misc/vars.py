@@ -3,7 +3,7 @@
 Variables:
 There exist enviroment variables and then there are shell variables. Distinciton in mind is due.
 A shell variable is abailable in that shell session and other programs are not aware of it.
-An enviroment variable is abailable to all programs running on the machine.
+An enviroment variable is abailable to all programs running on the system.
 
 Shell variables can live for the lifetime of the shell itself, unless they are reloaded again from
 the configuration script. Enviroment variables live forever, unless explicitly removed.
@@ -30,86 +30,6 @@ https://github.com/sloria/environs
 
 """
 
-import crocodile.toolbox as tb
-import platform
-
-
-machine = platform.system()
-
-
-class ShellVar:
-    @staticmethod
-    def set(key, val):
-        if machine == "Windows":
-            return f"set {key} {val}"
-        elif machine == "Linux":
-            return f"{key} = {val}"
-
-    @staticmethod
-    def get(key):
-        return f"${key}"  # works in powershell and bash
-    # in windows cmd `%key%`
-
-
-class EnvVar:
-    @staticmethod
-    def set(key, val):
-        if machine == "Windows":
-            return f"setx {key} {val}"  # WARNING: setx limits val to 1024q
-        elif machine == "Linux":
-            return f"export {key} = {val}"  # this is shell command. in csh: `setenv key val`
-        else:
-            raise NotImplementedError
-
-    @staticmethod
-    def get(key):
-        return f"${key}"  # works in powershell and bash
-    # in windows cmd `%key%`
-
-    @staticmethod
-    def delete(key, temp=True, scope=["User", "Machine"][0]):
-        if machine == "Windows":
-            if temp:
-                return fr"Remove-Item Env:\{key}"  # temporary removal (session)
-            else:
-                return fr'[Environment]::SetEnvironmentVariable("{key}",$null,"{scope}")'
-        else:
-            raise NotImplementedError
-
-
-class Env:
-    @staticmethod
-    def append_temporarily(path, kind="append"):
-        if machine == "Windows":
-            """Source: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables?view=powershell-7.2"""
-            if kind == "append":  # Append to the Path variable in the current window:
-                command = fr'$env:Path += ";{path}"'
-            elif kind == "prefix":  # Prefix the Path variable in the current window:
-                command = fr'$env:Path = "{path};" + $env:Path'
-            elif kind == "replace":  # Replace the Path variable in the current window (use with caution!):
-                command = fr'$env:Path = "{path}"'
-            else: raise KeyError
-            return command
-
-        else: return f'export PATH="{path}:$PATH"'
-
-    @staticmethod
-    def append_permanently(path, scope=["User", "Machine"][0]):
-        if machine == "Windows":
-            # AVOID THIS AND OPT TO SAVE IT IN $profile.
-            backup = fr'$env:PATH >> {tb.P.tmpfile()}.path_backup;'
-            command = fr'[Environment]::SetEnvironmentVariable("Path", $env:PATH + ";{path}", "{scope}")'
-            return backup + command
-
-        else:
-            tb.P.home().joinpath(".bashrc").append_text(f"export PATH='{path}:$PATH'")
-
-    @staticmethod
-    def set_permanetly(path, scope=["User", "Machine"][0]):
-        """This is useful if path is manipulated with a text editor or Python string manipulation
-        (not recommended programmatically even if original is backed up) and set the final value."""
-        return fr'[Environment]::SetEnvironmentVariable("Path", "{path}", "{scope}")'
-
 
 if __name__ == '__main__':
-    tb.os.system("ls")
+    pass
