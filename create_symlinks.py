@@ -40,6 +40,13 @@ def symlink(this: tb.P, to_this: tb.P, overwrite=True):
         print(f"Failed at linking {this} ==> {to_this}.\nReason: {ex}")
 
 
+def get_path(resp):
+    if resp.err == "":
+        return tb.P(resp.op.split("\n")[0])
+    else:
+        return None
+
+
 def link_ssh(overwrite=True):
     path = tb.P.home().joinpath(".ssh")
     target = dat.joinpath(".ssh")
@@ -54,54 +61,54 @@ def link_aws(overwrite=True):
         symlink(path.joinpath(item.name), item, overwrite=overwrite)
 
 
-def link_gitconfig():
+def link_gitconfig(overwrite=True):
     for config in [".gitconfig"]:
-        symlink(tb.P.home().joinpath(config), dat.joinpath(f"settings/{config}"))
+        symlink(tb.P.home().joinpath(config), dat.joinpath(f"settings/{config}"), overwrite=overwrite)
 
 
-def link_scripts():
+def link_scripts(overwrite=True):
     folder = {"Windows": "windows", "Linux": "linux"}[platform.system()]
-    symlink(tb.P.home().joinpath("scripts"), tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}"))
+    symlink(tb.P.home().joinpath("scripts"), tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}"), overwrite=overwrite)
 
 
-def link_pypi_creds():
-    symlink(tb.P.home().joinpath(".pypirc"), dat.joinpath("creds/.pypirc"))
+def link_pypi_creds(overwrite=True):
+    symlink(tb.P.home().joinpath(".pypirc"), dat.joinpath("creds/.pypirc"), overwrite=overwrite)
 
 
 def link_powershell(overwrite=True):
-    path = tb.P(tm.run("$PROFILE.CurrentUserCurrentHost", shell="pwsh").op.split("\n")[0])
+    path = get_path(tm.run("$PROFILE.CurrentUserCurrentHost", shell="pwsh"))
     target = dat.joinpath(f"shells/powershell/CurrentUserCurrentHost/{path.name}")
-    symlink(path, target, overwrite=overwrite)
+    if path: symlink(path, target, overwrite=overwrite)
 
-    path = tb.P(tm.run("$PROFILE.CurrentUserAllHosts", shell="pwsh").op.split("\n")[0])
+    path = get_path(tm.run("$PROFILE.CurrentUserAllHosts", shell="pwsh"))
     target = dat.joinpath(f"shells/powershell/CurrentUserAllHosts/{path.name}")
-    symlink(path, target, overwrite=overwrite)
+    if path: symlink(path, target, overwrite=overwrite)
 
-    path = tb.P(tm.run("$PROFILE.AllUsersCurrentHost", shell="pwsh").op.split("\n")[0])
+    path = get_path(tm.run("$PROFILE.AllUsersCurrentHost", shell="pwsh"))
     target = dat.joinpath(f"shells/powershell/AllUsersCurrentHost/{path.name}")
-    symlink(path, target, overwrite=overwrite)
+    if path: symlink(path, target, overwrite=overwrite)
 
-    path = tb.P(tm.run("$PROFILE.AllUsersAllHosts", shell="pwsh").op.split("\n")[0])
+    path = get_path(tm.run("$PROFILE.AllUsersAllHosts", shell="pwsh"))
     target = dat.joinpath(f"shells/powershell/AllUsersAllHosts/{path.name}")
-    symlink(path, target, overwrite=overwrite)
+    if path: symlink(path, target, overwrite=overwrite)
 
 
 def link_windows_powershell(overwrite=True):
-    path = tb.P(tm.run("$PROFILE.CurrentUserCurrentHost", shell="powershell").op.split("\n")[0])
+    path = get_path(tm.run("$PROFILE.CurrentUserCurrentHost", shell="powershell"))
     target = dat.joinpath(f"shells/windows_powershell/CurrentUserCurrentHost/{path.name}")
-    symlink(path, target, overwrite=overwrite)
+    if path: symlink(path, target, overwrite=overwrite)
 
-    path = tb.P(tm.run("$PROFILE.CurrentUserAllHosts", shell="powershell").op.split("\n")[0])
+    path = get_path(tm.run("$PROFILE.CurrentUserAllHosts", shell="powershell"))
     target = dat.joinpath(f"shells/windows_powershell/CurrentUserAllHosts/{path.name}")
-    symlink(path, target, overwrite=overwrite)
+    if path: symlink(path, target, overwrite=overwrite)
 
-    path = tb.P(tm.run("$PROFILE.AllUsersCurrentHost", shell="powershell").op.split("\n")[0])
+    path = get_path(tm.run("$PROFILE.AllUsersCurrentHost", shell="powershell"))
     target = dat.joinpath(f"shells/windows_powershell/AllUsersCurrentHost/{path.name}")
-    symlink(path, target, overwrite=overwrite)
+    if path: symlink(path, target, overwrite=overwrite)
 
-    path = tb.P(tm.run("$PROFILE.AllUsersAllHosts", shell="powershell").op.split("\n")[0])
+    path = get_path(tm.run("$PROFILE.AllUsersAllHosts", shell="powershell"))
     target = dat.joinpath(f"shells/windows_powershell/AllUsersAllHosts/{path.name}")
-    symlink(path, target, overwrite=overwrite)
+    if path: symlink(path, target, overwrite=overwrite)
 
 
 def link_ipython(overwrite=True):
@@ -112,14 +119,15 @@ def link_ipython(overwrite=True):
 
 def main():
     """create symlinks in default locations to `dotfiles` contents"""
-    link_gitconfig()
-    link_pypi_creds()
-    link_ipython()
-    link_powershell()
-    link_windows_powershell()
-    link_scripts()
-    link_aws()
-    link_ssh()
+    overwrite = True
+    link_gitconfig(overwrite=overwrite)
+    link_pypi_creds(overwrite=overwrite)
+    link_ipython(overwrite=overwrite)
+    link_powershell(overwrite=overwrite)
+    link_windows_powershell(overwrite=overwrite)
+    link_scripts(overwrite=overwrite)
+    link_aws(overwrite=overwrite)
+    link_ssh(overwrite=overwrite)
 
 
 if __name__ == '__main__':
