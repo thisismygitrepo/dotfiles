@@ -23,12 +23,16 @@ def install():
     ts.customize_powershell(nerd_font=True)
     ts.save_terminal_settings()
 
+    # Step 2.5 Install icons
+    tb.Terminal().run("Install-Module -Name Terminal-Icons -Repository PSGallery ", shell="powershell")
+
     # Step 3: install oh-my-posh
     # use this if you want to customize Windows Powershell:  console=powershell
     profile_path = tb.P(tb.Terminal().run("$profile", shell="pwsh").op.rstrip())
     theme_path = tb.P.home().joinpath(r"AppData\Local\Programs\oh-my-posh\themes")
     txt = f"oh-my-posh --init --shell pwsh --config {theme_path}\\jandedobbeleer.omp.json | Invoke-Expression"
     profile_path.modify_text(txt="oh-my-posh", alt=txt, newline=True)
+    profile_path.append_text("\nImport-Module -Name Terminal-Icons")
     # see also an eviroment profile called current theme of oh my posh
 
 
