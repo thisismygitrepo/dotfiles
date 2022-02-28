@@ -23,7 +23,7 @@ def push_one(path):
 
 def pull_one(path):
     print(f"Pulling {path}".center(80, "-"))
-    remotes = tm.run(f"cd {path}; git remote", shell="powerpsshell").op.split("\n")
+    remotes = tm.run(f"cd {path}; git remote", shell="powershell").op.split("\n")
     for remote in remotes:
         if remote != "":
             res = tm.run(f'cd {path}; git pull {remote}', shell="powershell")
