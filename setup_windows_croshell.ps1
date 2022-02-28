@@ -2,7 +2,12 @@
 
 # =============================== PYTHON =================================================
 winget install --name "Git"
-winget install -e --id Python.Python.3 -v 3.9.7150.0
+
+# a terminal restart of terminal is required to for git to work, or the one can update the path
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
+winget install -e --id "Python.Python.3" -v "3.9.7150.0" --source winget
+set mypy ($env:LOCALAPPDATA + "\Programs\Python\Python39\python.exe")
 # OR:
 #winget install --name "Python 3" --source winget  # gives the latest python
 
@@ -14,6 +19,7 @@ python3.9 -m venv "./venvs/ve"  # ve will have same python version as `python`, 
 # activate
 ~/venvs/ve/Scripts/Activate.ps1
 python -m pip install --upgrade pip  # upgrades the pip that is within the environment.
+
 
 # Python: add conda to PATH, config terminals,
 # set PATH=%PATH%;C:\ProgramData\Anaconda3
@@ -35,16 +41,15 @@ python -m pip install --upgrade pip  # upgrades the pip that is within the envir
 # git repos:
 cd ~
 mkdir code
-cd code
+cd ~/code
 git clone https://github.com/thisismygitrepo/crocodile.git
+git clone https://github.com/thisismygitrepo/dotfiles  # Choose browser-based authentication.
 
 cd ~/code/crocodile
 pip install -e .  # local installation of crocodile (allows for development)
 pip install -r requirements.txt  # not installed automatically by corocdile.
 
-# =============================== KEYS & LINKS ============================================
 cd ~/code
-git clone https://github.com/thisismygitrepo/dotfiles  # Choose browser-based authentication.
 start ($env:LOCALAPPDATA + "\Microsoft\OneDrive\onedrive.exe")
 cd ~/code/dotfiles
 python -m fire ./jobs/backup.py retrieve_dotfiles
@@ -57,7 +62,7 @@ python -m fire./create_symlinks.py main
 # winget install --name "AWS Command Line Interface"
 winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget
 # Terminal is is installed by default on W 11
-winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget
+winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget  # powershell require admin
 
 # ==== Fancy shell:
 winget install JanDeDobbeleer.OhMyPosh

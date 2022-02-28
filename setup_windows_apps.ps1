@@ -2,10 +2,8 @@
 # to get exact version of an app in winget, head to: https://winget.run
 
 # ================================= APPS ================================================
-# 1- Getting Started
 winget install --name "Google Chrome" --Id "Google.Chrome" --source winget
 #winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesktop" --source winget
-# 2- Sign in to Chrome with G account, this will give access to LastPass, sign in to that as well.
 # winget search "Microsoft Teams" --Id "Microsoft.Teams" --Source winget
 
 # productivity
@@ -23,6 +21,9 @@ winget install --name "Microsoft Garage Mouse without Borders"
 winget install --name "notepad++" --source winget
 winget install --name "Microsoft Visual Studio Code" --Id "Microsoft.VisualStudioCode" --source winget
 winget install --name "PyCharm Professional Edition"
+# winget install --name "PyCharm Community Edition" --Id "JetBrains.PyCharm.Community" --source winget
+# winget install spyder
+
 winget install --name "Node.js"
 winget install --name "julia" --Id "Julialang.Julia" --source winget
 winget install --name "DB Browser for SQLite"
