@@ -1,6 +1,7 @@
 
 
 import crocodile.toolbox as tb
+import crocodile.enviroment as env
 
 """
 setup file for each shell can be found in $profile. The settings.json is the config file for Terminal.
@@ -24,7 +25,7 @@ def install():
     ts.save_terminal_settings()
 
     # Step 2.5 Install icons
-    tb.Terminal().run("Install-Module -Name Terminal-Icons -Repository PSGallery ", shell="powershell")
+    tb.Terminal().run("Install-Module -Name Terminal-Icons -Repository PSGallery", shell="powershell")
 
     # Step 3: install oh-my-posh
     # use this if you want to customize Windows Powershell:  console=powershell
@@ -49,6 +50,11 @@ def choose():
     theme_path = tb.P(tb.Terminal().run("$env:POSH_THEME", shell='pwsh').op.rstrip())
     path.modify_text(txt=theme_path.str, alt=theme_path.with_trunk(name).str, newline=False)
     print(f"Done. Use `.$profile` to force opened terminals to reload profile or restart powershell.")
+
+
+def add_autostart():
+    file = env.AppData.joinpath("Microsoft/Windows/Start Menu/Programs/Startup").joinpath("startup_file.cmd")
+    file.write_text(f"powershell.exe \"{tb.P.home().joinpath(r'scripts/terminal.ps1')}\"")
 
 
 if __name__ == '__main__':

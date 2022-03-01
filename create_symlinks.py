@@ -77,38 +77,46 @@ def link_pypi_creds(overwrite=True):
 
 def link_powershell(overwrite=True):
     path = get_path(tm.run("$PROFILE.CurrentUserCurrentHost", shell="pwsh"))
-    target = dat.joinpath(f"shells/powershell/CurrentUserCurrentHost/{path.name}")
-    if path: symlink(path, target, overwrite=overwrite)
+    if path: 
+        target = dat.joinpath(f"shells/powershell/CurrentUserCurrentHost/{path.name}")
+        symlink(path, target, overwrite=overwrite)
 
     path = get_path(tm.run("$PROFILE.CurrentUserAllHosts", shell="pwsh"))
-    target = dat.joinpath(f"shells/powershell/CurrentUserAllHosts/{path.name}")
-    if path: symlink(path, target, overwrite=overwrite)
+    if path: 
+        target = dat.joinpath(f"shells/powershell/CurrentUserAllHosts/{path.name}")
+        symlink(path, target, overwrite=overwrite)
 
     path = get_path(tm.run("$PROFILE.AllUsersCurrentHost", shell="pwsh"))
-    target = dat.joinpath(f"shells/powershell/AllUsersCurrentHost/{path.name}")
-    if path: symlink(path, target, overwrite=overwrite)
+    if path: 
+        target = dat.joinpath(f"shells/powershell/AllUsersCurrentHost/{path.name}")
+        symlink(path, target, overwrite=overwrite)
 
     path = get_path(tm.run("$PROFILE.AllUsersAllHosts", shell="pwsh"))
-    target = dat.joinpath(f"shells/powershell/AllUsersAllHosts/{path.name}")
-    if path: symlink(path, target, overwrite=overwrite)
+    if path: 
+        target = dat.joinpath(f"shells/powershell/AllUsersAllHosts/{path.name}")
+        symlink(path, target, overwrite=overwrite)
 
 
 def link_windows_powershell(overwrite=True):
     path = get_path(tm.run("$PROFILE.CurrentUserCurrentHost", shell="powershell"))
-    target = dat.joinpath(f"shells/windows_powershell/CurrentUserCurrentHost/{path.name}")
-    if path: symlink(path, target, overwrite=overwrite)
+    if path: 
+        target = dat.joinpath(f"shells/windows_powershell/CurrentUserCurrentHost/{path.name}")
+        symlink(path, target, overwrite=overwrite)
 
     path = get_path(tm.run("$PROFILE.CurrentUserAllHosts", shell="powershell"))
-    target = dat.joinpath(f"shells/windows_powershell/CurrentUserAllHosts/{path.name}")
-    if path: symlink(path, target, overwrite=overwrite)
+    if path: 
+        target = dat.joinpath(f"shells/windows_powershell/CurrentUserAllHosts/{path.name}")
+        symlink(path, target, overwrite=overwrite)
 
     path = get_path(tm.run("$PROFILE.AllUsersCurrentHost", shell="powershell"))
-    target = dat.joinpath(f"shells/windows_powershell/AllUsersCurrentHost/{path.name}")
-    if path: symlink(path, target, overwrite=overwrite)
+    if path: 
+        target = dat.joinpath(f"shells/windows_powershell/AllUsersCurrentHost/{path.name}")
+        symlink(path, target, overwrite=overwrite)
 
     path = get_path(tm.run("$PROFILE.AllUsersAllHosts", shell="powershell"))
-    target = dat.joinpath(f"shells/windows_powershell/AllUsersAllHosts/{path.name}")
-    if path: symlink(path, target, overwrite=overwrite)
+    if path: 
+        target = dat.joinpath(f"shells/windows_powershell/AllUsersAllHosts/{path.name}")
+        symlink(path, target, overwrite=overwrite)
 
 
 def link_ipython(overwrite=True):
