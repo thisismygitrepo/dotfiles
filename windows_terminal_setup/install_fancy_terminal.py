@@ -18,7 +18,7 @@ def install():
     file.write_text(txt)
     tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -file \"{file}\"")
 
-    # Step 2: change the profile of the terminal such that it autoloads oh-my-posh
+    # Step 2: change the profile of the terminal such that it nerd font is chosen for powershell
     from windows_terminal_setup.change_terminal_settings import TerminalSettings
     ts = TerminalSettings()
     ts.customize_powershell(nerd_font=True)
@@ -28,6 +28,9 @@ def install():
     tb.Terminal().run("Install-Module -Name Terminal-Icons -Repository PSGallery", shell="powershell")
 
     # Step 3: install oh-my-posh
+    tb.Terminal().run('winget install --name "Oh My Posh" --Id "JanDeDobbeleer.OhMyPosh --source winget', shell="powershell")
+
+    # Step 4: customize powershell profile such that it loads oh-my-posh
     # use this if you want to customize Windows Powershell:  console=powershell
     profile_path = tb.P(tb.Terminal().run("$profile", shell="pwsh").op.rstrip())
     theme_path = tb.P.home().joinpath(r"AppData\Local\Programs\oh-my-posh\themes")
