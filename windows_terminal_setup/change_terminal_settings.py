@@ -5,11 +5,10 @@ from uuid import uuid4
 
 """
 Not to be confused:
-Windows Terminal & Windows Terminal Preview
-The latter is the night release version of WT.
-Windows PowerShell & PowerShell.
-The latter is community developed and is available on all platforms.
-Lastly, powershell has a preview version as well.
+* Windows Terminal & Windows Terminal Preview: The latter is the night release version of WT.
+* Windows PowerShell & PowerShell: The latter is community developed and is available on all platforms.
+* Lastly, powershell has a preview version as well.
+All modules are available on GitHub: https://aka.ms/terminal-profiles-schema
 """
 
 
