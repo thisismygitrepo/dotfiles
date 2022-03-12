@@ -1,6 +1,6 @@
 
 import crocodile.toolbox as tb
-from crocodile.enviroment import OneDriveConsumer
+from crocodile.enviroment import OneDriveConsumer, OneDriveExe
 
 
 onedrive = OneDriveConsumer
@@ -20,6 +20,7 @@ def main():
     dat.zip_n_encrypt(key=key, inplace=False, verbose=True).move(folder=onedrive.joinpath("AppData"), overwrite=True)
     if downloaded_key_from_lastpass: key.delete(sure=True)
     print(" ========================= SUCCESSFULLY BACKEDUP ===============================")
+    OneDriveExe()
 
 
 if __name__ == '__main__':

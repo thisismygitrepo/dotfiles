@@ -1,7 +1,7 @@
 
 
 import crocodile.toolbox as tb
-from crocodile.enviroment import OneDriveConsumer
+from crocodile.enviroment import OneDriveConsumer, OneDriveExe
 
 
 onedrive = OneDriveConsumer
@@ -10,6 +10,7 @@ dat = tb.P.home().joinpath("dotfiles")
 
 def main():
     """Decrypts and brings a copy of `dotfiles` from OneDrive"""
+    OneDriveExe()
     key = dat.joinpath("creds/encrypted_files_key.bytes")
     if not key.exists():
         key = tb.P(input(f"path to key (DONT'T use quotation marks nor raw prefix):")).unzip(inplace=False, verbose=True).find()

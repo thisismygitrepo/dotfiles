@@ -54,7 +54,7 @@ def choose():
 
 def add_autostart():
     file = env.AppData.joinpath("Microsoft/Windows/Start Menu/Programs/Startup").joinpath("startup_file.cmd")
-    file.write_text(f"powershell.exe \"{tb.P.home().joinpath(r'scripts/terminal.ps1')}\"")
+    file.write_text(f"powershell.exe \"{tb.P.home().joinpath(r'scripts/start_terminal.ps1')}\"")
 
 
 if __name__ == '__main__':
