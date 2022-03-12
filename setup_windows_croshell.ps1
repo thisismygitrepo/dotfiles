@@ -52,7 +52,7 @@ pip install -r requirements.txt  # not installed automatically by corocdile.
 cd ~/code
 start ($env:LOCALAPPDATA + "\Microsoft\OneDrive\onedrive.exe")
 cd ~/code/dotfiles
-python -m fire ./jobs/backup.py retrieve_dotfiles
+python -m fire ./jobs/dotfiles_retrieve.py main
 cd ~/code/dotfiles
 python -m fire./create_symlinks.py main
 

@@ -42,9 +42,9 @@ sudo apt install python3.9  # ignore system level one. launched with `python39`,
 #python39
 
 #!!
+sudo apt install python3.9-venv
 mkdir ~/venvs/
 cd ~/venvs/ || exit
-apt install python3.9-venv
 python3.9 -m venv ve
 cd ~ || exit
 source ~/venvs/ve/bin/activate || exit

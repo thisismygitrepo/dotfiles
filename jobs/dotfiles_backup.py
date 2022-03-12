@@ -17,8 +17,7 @@ def main():
         downloaded_key_from_lastpass = True
     # P("lastpass_export_2022_1_1.csv").encrypt(key="key.zip")
     # caveat: if there is more than onedrive account.
-    dat.zip_n_encrypt(key=key, inplace=False, verbose=True).move(folder=onedrive.joinpath("AppData"),
-                                                                 overwrite=True)
+    dat.zip_n_encrypt(key=key, inplace=False, verbose=True).move(folder=onedrive.joinpath("AppData"), overwrite=True)
     if downloaded_key_from_lastpass: key.delete(sure=True)
     print(" ========================= SUCCESSFULLY BACKEDUP ===============================")
 
