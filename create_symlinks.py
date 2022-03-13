@@ -5,8 +5,8 @@ This script Takes away all config files from the computer, place them in one dir
 """
 import crocodile.toolbox as tb
 import platform
+from crocodile.enviroment import DotFiles, get_shell_profiles
 
-dat = tb.P.home().joinpath("dotfiles")
 tm = tb.Terminal()
 # logger = tb.Log(file=False)
 
@@ -40,30 +40,23 @@ def symlink(this: tb.P, to_this: tb.P, overwrite=True):
         print(f"Failed at linking {this} ==> {to_this}.\nReason: {ex}")
 
 
-def get_path(resp):
-    if resp.err == "":
-        return tb.P(resp.op.split("\n")[0])
-    else:
-        return None
-
-
 def link_ssh(overwrite=True):
     path = tb.P.home().joinpath(".ssh")
-    target = dat.joinpath(".ssh")
+    target = DotFiles.joinpath(".ssh")
     for item in target.search("*"):
         symlink(path.joinpath(item.name), item, overwrite=overwrite)
 
 
 def link_aws(overwrite=True):
     path = tb.P.home().joinpath(".aws")
-    target = dat.joinpath("aws/.aws")
+    target = DotFiles.joinpath("aws/.aws")
     for item in target.search("*"):
         symlink(path.joinpath(item.name), item, overwrite=overwrite)
 
 
 def link_gitconfig(overwrite=True):
     for config in [".gitconfig"]:
-        symlink(tb.P.home().joinpath(config), dat.joinpath(f"settings/{config}"), overwrite=overwrite)
+        symlink(tb.P.home().joinpath(config), DotFiles.joinpath(f"settings/{config}"), overwrite=overwrite)
 
 
 def link_scripts(overwrite=True):
@@ -72,56 +65,24 @@ def link_scripts(overwrite=True):
 
 
 def link_pypi_creds(overwrite=True):
-    symlink(tb.P.home().joinpath(".pypirc"), dat.joinpath("creds/.pypirc"), overwrite=overwrite)
+    symlink(tb.P.home().joinpath(".pypirc"), DotFiles.joinpath("creds/.pypirc"), overwrite=overwrite)
 
 
 def link_powershell(overwrite=True):
-    path = get_path(tm.run("$PROFILE.CurrentUserCurrentHost", shell="pwsh"))
-    if path: 
-        target = dat.joinpath(f"shells/powershell/CurrentUserCurrentHost/{path.name}")
-        symlink(path, target, overwrite=overwrite)
-
-    path = get_path(tm.run("$PROFILE.CurrentUserAllHosts", shell="pwsh"))
-    if path: 
-        target = dat.joinpath(f"shells/powershell/CurrentUserAllHosts/{path.name}")
-        symlink(path, target, overwrite=overwrite)
-
-    path = get_path(tm.run("$PROFILE.AllUsersCurrentHost", shell="pwsh"))
-    if path: 
-        target = dat.joinpath(f"shells/powershell/AllUsersCurrentHost/{path.name}")
-        symlink(path, target, overwrite=overwrite)
-
-    path = get_path(tm.run("$PROFILE.AllUsersAllHosts", shell="pwsh"))
-    if path: 
-        target = dat.joinpath(f"shells/powershell/AllUsersAllHosts/{path.name}")
-        symlink(path, target, overwrite=overwrite)
+    for profile_name, profile_path in get_shell_profiles(shell="pwsh").items():
+        target = DotFiles.joinpath(f"shells/powershell/{profile_name}/{profile_path.name}")
+        symlink(profile_path, target, overwrite=overwrite)
 
 
 def link_windows_powershell(overwrite=True):
-    path = get_path(tm.run("$PROFILE.CurrentUserCurrentHost", shell="powershell"))
-    if path: 
-        target = dat.joinpath(f"shells/windows_powershell/CurrentUserCurrentHost/{path.name}")
-        symlink(path, target, overwrite=overwrite)
-
-    path = get_path(tm.run("$PROFILE.CurrentUserAllHosts", shell="powershell"))
-    if path: 
-        target = dat.joinpath(f"shells/windows_powershell/CurrentUserAllHosts/{path.name}")
-        symlink(path, target, overwrite=overwrite)
-
-    path = get_path(tm.run("$PROFILE.AllUsersCurrentHost", shell="powershell"))
-    if path: 
-        target = dat.joinpath(f"shells/windows_powershell/AllUsersCurrentHost/{path.name}")
-        symlink(path, target, overwrite=overwrite)
-
-    path = get_path(tm.run("$PROFILE.AllUsersAllHosts", shell="powershell"))
-    if path: 
-        target = dat.joinpath(f"shells/windows_powershell/AllUsersAllHosts/{path.name}")
-        symlink(path, target, overwrite=overwrite)
+    for profile_name, profile_path in get_shell_profiles(shell="powershell").items():
+        target = DotFiles.joinpath(f"shells/powershell/{profile_name}/{profile_path.name}")
+        symlink(profile_path, target, overwrite=overwrite)
 
 
 def link_ipython(overwrite=True):
     path = tb.P.home().joinpath(".ipython/profile_default/ipython_config.py")
-    target = dat.joinpath(f"shells/ipython/{path.name}")
+    target = DotFiles.joinpath(f"shells/ipython/{path.name}")
     symlink(path, target, overwrite=overwrite)
 
 
