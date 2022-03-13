@@ -14,13 +14,12 @@
 #    $drive = "ve"
 #}
 #& ("~/venvs/" + $drive + "/Scripts/Activate.ps1")
-if ($args[0] -eq $null)
-{
+if ($args[0] -eq $null) {
     $name = "ve"
 }
-    else{
-        $name = $args[0]
-    }
+else {
+    $name = $args[0]
+}
 
 #write-host $name
 

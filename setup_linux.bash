@@ -2,6 +2,7 @@
 # allow ssh to linux:
 # on the linux machine:
 sudo apt install openssh-server
+
 # locally
 sftp username@hostname  # put in password for once
 # !!
@@ -17,6 +18,7 @@ cat id_rsa.pub > authorized_keys
 # will cause it to fail
 ssh alex@salhn-thinkpad
 # !!
+
 sudo apt update
 sudo apt upgrade
 sudo apt install git
@@ -26,7 +28,6 @@ curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/i
 cd ~ || exit
 curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/tmux.conf > .tmux.conf
 sudo apt install tmux  # allows multiple terminals that are persistent.
-# !!
 
 # conda
 #apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
@@ -39,9 +40,6 @@ sudo apt install tmux  # allows multiple terminals that are persistent.
 ## notice that on linux, the default is that miniconda will be added to PATH unlike windows where this is not recommended
 
 sudo apt install python3.9  # ignore system level one. launched with `python39`, as opposed to `python`
-#python39
-
-#!!
 sudo apt install python3.9-venv
 mkdir ~/venvs/
 cd ~/venvs/ || exit
@@ -54,16 +52,12 @@ cd ~ || exit
 mkdir code
 cd ~/code || exit
 git clone https://github.com/thisismygitrepo/crocodile.git
-cd crocodile || exit
+git clone https://github.com/thisismygitrepo/dotfiles.git
+cd ~/crocodile || exit
 pip install -e .
 pip install -r requirements.txt
 cd ~ || exit
 
-# This point.
-# ==========================================================
-# after having the private_keys, run this:
-# in a ipshell ssh = SSH(creds).copy_from_here("~/dotfiles")
-# SSH(creds).copy_from_here("~/dcode/dotfiles")
-python -m fire ~/code/dotfiles/create_symlinks.py main
+python -m fire ~/code/dotfiles/create_symlinks.py link_scripts
 sudo chmod 600 ~/.ssh/id_ed25519
 echo "All Done!"

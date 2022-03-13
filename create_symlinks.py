@@ -7,9 +7,6 @@ import crocodile.toolbox as tb
 import platform
 from crocodile.enviroment import DotFiles, get_shell_profiles
 
-tm = tb.Terminal()
-# logger = tb.Log(file=False)
-
 
 def symlink(this: tb.P, to_this: tb.P, overwrite=True):
     """helper function. creates a symlink from `this` to `to_this`.
