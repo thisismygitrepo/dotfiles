@@ -5,7 +5,7 @@ This script Takes away all config files from the computer, place them in one dir
 """
 import crocodile.toolbox as tb
 import platform
-from crocodile.enviroment import DotFiles, get_shell_profiles
+from crocodile.environment import DotFiles, get_shell_profiles
 
 
 def symlink(this: tb.P, to_this: tb.P, overwrite=True):

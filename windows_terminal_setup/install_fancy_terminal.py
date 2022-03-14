@@ -1,5 +1,5 @@
 import crocodile.toolbox as tb
-import crocodile.enviroment as env
+import crocodile.environment as env
 
 """
 setup file for each shell can be found in $profile. The settings.json is the config file for Terminal.

@@ -1,5 +1,5 @@
 
-from crocodile.enviroment import OneDriveConsumer, OneDriveExe, DotFiles
+from crocodile.environment import OneDriveConsumer, OneDriveExe, DotFiles
 import crocodile.toolbox as tb
 
 
