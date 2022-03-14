@@ -72,5 +72,6 @@ pip install -r requirements.txt
 cd ~ || exit
 
 python -m fire ~/code/dotfiles/create_symlinks.py link_scripts
-sudo chmod 600 ~/.ssh/id_ed25519
+sudo chmod 600 ~/.ssh/*
+sudo chmod 700 ~/.ssh
 echo "All Done!"
