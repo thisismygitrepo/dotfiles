@@ -4,7 +4,7 @@ import crocodile.environment as env
 from jobs.utils import retrieve as retrieve_func, backup as backup_func
 
 
-def bacup_dotfiles():
+def backup_dotfiles():
     backup_func("~/dotfiles")
 
 
