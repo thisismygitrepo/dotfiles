@@ -21,6 +21,7 @@ ssh alex@salhn-thinkpad
 
 sudo apt update
 sudo apt upgrade
+sudo apt install wget
 sudo apt install git
 # the equivalent of Windows Terminal: TMUX
 # From here: https://github.com/dhaneshsivasamy07/tmux_tweaks/blob/master/.tmux.conf
@@ -28,6 +29,18 @@ curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/i
 cd ~ || exit
 curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/tmux.conf > .tmux.conf
 sudo apt install tmux  # allows multiple terminals that are persistent.
+
+# install chrome:
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo dpkg -i google-chrome-stable_current_amd64.deb
+# install snap store
+sudo mv /etc/apt/preferences.d/nosnap.pref ~/Documents/nosnap.backup
+sudo apt update
+sudo apt install snapd
+# install development apps:
+sudo snap install pycharm-community --classic
+sudo snap install code --classic
+sudo snap install powershell --classic
 
 # conda
 #apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
