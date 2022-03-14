@@ -27,7 +27,7 @@ winget install --name "PyCharm Professional Edition"
 winget install --name "Node.js"
 winget install --name "julia" --Id "Julialang.Julia" --source winget
 winget install --name "DB Browser for SQLite"
-winget install --name "Ubuntu" --Id Canonical.Ubuntu --source winget
+winget install --wsl "Ubuntu" --Id Canonical.Ubuntu --source winget
 # in the future it will be: `wsl --install`
 Ubuntu  # this will install it, you will be prompted for user name and password.
 

@@ -1,5 +1,3 @@
-
-
 import crocodile.toolbox as tb
 import crocodile.enviroment as env
 
@@ -15,41 +13,49 @@ def install():
     file = tb.P.tmpfile(suffix=".ps1").write_text(txt)
     tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -File \"{file}\"")
 
-    # Step 2: change the profile of the terminal such that nerd font is chosen for powershell
-    from windows_terminal_setup.change_terminal_settings import TerminalSettings
-    ts = TerminalSettings()
-    ts.customize_powershell(nerd_font=True)
-    ts.save_terminal_settings()
-
-    # Step 2.5 Install icons
+    # Step 2: Install icons
     tb.Terminal().run("Install-Module -Name Terminal-Icons -Repository PSGallery", shell="powershell")
 
     # Step 3: install oh-my-posh
     tb.Terminal().run('winget install --name "Oh My Posh" --Id "JanDeDobbeleer.OhMyPosh --source winget', shell="powershell")
 
-    # Step 4: customize powershell profile such that it loads oh-my-posh and the terminal icons automatically.
-    # use this if you want to customize Windows Powershell instead of powershell:  console=powershell
-    profile_path = tb.P(tb.Terminal().run("$profile", shell="pwsh").op.rstrip())
-    theme_path = tb.P.home().joinpath(r"AppData\Local\Programs\oh-my-posh\themes")
+    # Step 4: change the profile of the terminal such that nerd font is chosen for your shell
+    shell = {"powershell": "pwsh.exe", "Windows Powershell": "powershell.exe"}["powershell"].split(".exe")[0]
+    from windows_terminal_setup.change_terminal_settings import TerminalSettings
+    if shell == "pwsh":
+        ts = TerminalSettings()
+        ts.customize_powershell(nerd_font=True)
+        ts.save_terminal_settings()
+    else:
+        raise NotImplementedError
+
+    # Step 5: customize powershell profile such that it loads oh-my-posh and the terminal icons automatically.
+    profile_path = tb.P(tb.Terminal().run("$profile", shell=shell).op.rstrip())
+    theme_path = tb.P.home().joinpath(r"AppData\Local\Programs\oh-my-posh\themes").collapseuser()  # makes the profile work on any machine.
     txt = f"oh-my-posh --init --shell pwsh --config {theme_path}\\jandedobbeleer.omp.json | Invoke-Expression"
     profile_path.modify_text(txt="oh-my-posh", alt=txt, newline=True)
-    profile_path.append_text("\nImport-Module -Name Terminal-Icons")
-    # see also an eviroment profile called current theme of oh my posh
+    profile_path.modify_text(txt="Import-Module -Name Terminal-Icons", alt="Import-Module -Name Terminal-Icons", newline=True)
 
 
-def choose():
+def choose(name=""):
     """run this function to interactively choose a style
     Optionally, inpsect the themes of oh my posh and select one:
     """
-    tb.P("https://ohmyposh.dev/docs/themes").start()
-    # replace ~/jan... with full path to theme. use: start $profile
-    name = input(f"A chrome tab with styles is opened, choose one and put its name here: [jandedobbeleer] ")
-    name = name or "jandedobbeleer"
-    path = tb.P(tb.Terminal().run("$profile", shell="pwsh").op.rstrip())
-    # or tb.os.environ["POSH_THEME"] (only available in pwsh shell, not in cmd)
-    theme_path = tb.P(tb.Terminal().run("$env:POSH_THEME", shell='pwsh').op.rstrip())
-    path.modify_text(txt=theme_path.str, alt=theme_path.with_trunk(name).str, newline=False)
-    print(f"Done. Use `.$profile` to force opened terminals to reload profile or restart powershell.")
+    themes_path = tb.Terminal().run("$env:POSH_THEMES_PATH", shell='pwsh').as_path
+    current_theme_path = tb.Terminal().run("$env:POSH_THEME", shell='pwsh').as_path
+
+    if name == "manual":
+        tb.P("https://ohmyposh.dev/docs/themes").start()
+        # replace ~/jan... with full path to theme. use: start $profile
+        name = input(f"A chrome tab with styles is opened, choose one and put its name here: [jandedobbeleer] ")
+    if name == "show":
+        tb.os.system("Get-PoshThemes")
+        return ""
+    if name == "": name = themes_path.search().apply(lambda x: x.trunk).sample()[0]
+    print("Current Theme:", current_theme_path.trunk)
+    print("New theme: ", name)
+    profile_path = tb.Terminal().run("$profile", shell="pwsh").as_path
+    profile_path.modify_text(txt=current_theme_path.trunk, alt=name, newline=False)
 
 
 def add_autostart():

@@ -10,6 +10,8 @@ the configuration script. Enviroment variables live forever, unless explicitly r
 
 Enviroment variables can only be strings. Shell variables can be anything.
 
+Shell vars are not inherited by subprocess launched from the shell at hand.
+
 Path, is a special enviroment variable. It contains directories that will be searched when looking
 for executables. If you have an executable, it is not recommended to put its path as an inviroment variable.
 Otherwise, you need to give it a name and then explicitly launch it with, .e.g `start $julia`
