@@ -5,7 +5,7 @@ This script Takes away all config files from the computer, place them in one dir
 """
 import crocodile.toolbox as tb
 import platform
-from crocodile.environment import DotFiles, get_shell_profiles
+from crocodile.environment import DotFiles, get_shell_profiles, system
 
 
 def symlink(this: tb.P, to_this: tb.P, overwrite=True):
@@ -66,12 +66,16 @@ def link_pypi_creds(overwrite=True):
 
 
 def link_powershell(overwrite=True):
+    if system == "Linux":
+        return
     for profile_name, profile_path in get_shell_profiles(shell="pwsh").items():
         target = DotFiles.joinpath(f"shells/powershell/{profile_name}/{profile_path.name}")
         symlink(profile_path, target, overwrite=overwrite)
 
 
 def link_windows_powershell(overwrite=True):
+    if system == "Linux":
+        return
     for profile_name, profile_path in get_shell_profiles(shell="powershell").items():
         target = DotFiles.joinpath(f"shells/powershell/{profile_name}/{profile_path.name}")
         symlink(profile_path, target, overwrite=overwrite)
