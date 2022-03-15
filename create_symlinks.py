@@ -5,7 +5,7 @@ This script Takes away all config files from the computer, place them in one dir
 """
 import crocodile.toolbox as tb
 import platform
-from crocodile.environment import DotFiles, get_shell_profiles, system
+from crocodile.environment import DotFiles, get_shell_profiles, system, AppData
 
 
 def symlink(this: tb.P, to_this: tb.P, overwrite=True):
@@ -87,6 +87,11 @@ def link_ipython(overwrite=True):
     symlink(path, target, overwrite=overwrite)
 
 
+def link_autostart(overwrite=True):
+    file = AppData.joinpath("Microsoft/Windows/Start Menu/Programs/Startup").joinpath("startup_file.cmd")
+    symlink(file, tb.P(r"~/code/dotfiles/jobs/windows/startup_file.cmd").expanduser(), overwrite=overwrite)
+
+
 def main():
     """create symlinks in default locations to `dotfiles` contents"""
     overwrite = True
@@ -98,6 +103,7 @@ def main():
     link_scripts(overwrite=overwrite)
     link_aws(overwrite=overwrite)
     link_ssh(overwrite=overwrite)
+    link_autostart(overwrite=overwrite)
 
 
 if __name__ == '__main__':

@@ -11,7 +11,7 @@ set mypy ($env:LOCALAPPDATA + "\Programs\Python\Python39\python.exe")
 # OR:
 #winget install --name "Python 3" --source winget  # gives the latest python
 
-python3.9 -m pip install --upgrade pip
+
 python3.9 -m pip install venv
 mkdir ~/venvs
 cd ~
@@ -38,7 +38,6 @@ python -m pip install --upgrade pip  # upgrades the pip that is within the envir
 
 
 # ====================== REPOS ======================================
-# git repos:
 cd ~
 mkdir code
 cd ~/code
@@ -52,10 +51,9 @@ pip install -r requirements.txt  # not installed automatically by corocdile.
 cd ~/code
 start ($env:LOCALAPPDATA + "\Microsoft\OneDrive\onedrive.exe")
 cd ~/code/dotfiles
-python -m fire ./jobs/dotfiles_retrieve.py main
+python -m fire ./jobs/backup_retrieve.py retrieve_dotfiles
 cd ~/code/dotfiles
 python -m fire./create_symlinks.py main
-
 
 # ============================== Shells ===========================================
 # winget install --name "PuTTY"
@@ -68,5 +66,5 @@ winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget  
 winget install JanDeDobbeleer.OhMyPosh
 cd ~/code/dotfiles
 python -m fire "windows_terminal_setup/change_terminal_settings.py" main
-python -m fire "windows_terminal_setup/install_fancy_terminal.py" install
-python -m fire "windows_terminal_setup/install_fancy_terminal.py" choose
+python -m fire "windows_terminal_setup/fancy_prompt_themes.py" install
+python -m fire "windows_terminal_setup/fancy_prompt_themes.py" choose

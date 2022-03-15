@@ -13,12 +13,12 @@ def backup(path):
     tb.P(path).zip_n_encrypt(key=key, inplace=False, verbose=True).move(folder=OneDriveConsumer.joinpath("AppData"), overwrite=True)
     if downloaded_key_from_lastpass: key.delete(sure=True)
     print(f" ========================= SUCCESSFULLY BACKEDUP {path} ===============================")
-    OneDriveExe()
+    OneDriveExe()  # push to OneDrive
 
 
 def retrieve(source_file, target_folder):
     """Decrypts and brings a copy of `dotfiles` from OneDrive"""
-    OneDriveExe()
+    OneDriveExe()  # load latest from OneDrive.
     key = DotFiles.joinpath("creds/encrypted_files_key.bytes")
     if not key.exists():
         key = tb.P(input(f"path to key (DONT'T use quotation marks nor raw prefix):")).unzip(inplace=False, verbose=True).find()

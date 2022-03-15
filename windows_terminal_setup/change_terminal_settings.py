@@ -1,6 +1,6 @@
-import platform
 
 import crocodile.toolbox as tb
+import crocodile.environment as env
 from uuid import uuid4
 
 """
@@ -14,11 +14,13 @@ All settings are available on GitHub: https://aka.ms/terminal-profiles-schema
 """
 
 
+assert env.system == 'Windows', 'This script is only for Windows.'
+
+
 class TerminalSettings(object):
     def __init__(self):
         # Grabbing Terminal Settings file:
-        path = tb.os.environ["LocalAppData"]
-        self.path = tb.P(path).joinpath(r"Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
+        self.path = env.LocalAppData.joinpath(r"Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json")
         self.path.copy(append=".orig." + tb.randstr())
         self.dat = self.path.readit()
         self.profs = tb.L(self.dat["profiles"]["list"])
@@ -70,11 +72,6 @@ class TerminalSettings(object):
     def add_croshell(self):
         # Adding croshell if it is not there.
         # py_pr = tb.copy.deepcopy(pr)  # use it as a template for the new profile.
-        if platform.system() == "Windows":
-            activate = "~/venvs/ve/Scripts/Activate.ps1;"
-        elif platform.system() == "Linux":
-            activate = "~/venvs/ve/Scripts/activate;"
-        else: raise SystemError("Unsupported OS.")
         croshell = dict(name="croshell",
                         guid="{" + str(uuid4()) + "}",
                         # commandline=f"powershell.exe -Command \"{activate} ipython -i -c 'from crocodile.toolbox import *'\"",
@@ -106,8 +103,7 @@ class TerminalSettings(object):
         pwsh = croshell = ubuntu = wpwsh = cmd = azure = None
         for profile in self.profs:
             name = profile["name"]
-            if name == "PowerShell":
-                pwsh = profile
+            if name == "PowerShell": pwsh = profile
             elif name == "croshell":
                 croshell = profile
             elif name == "Ubuntu":
