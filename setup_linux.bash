@@ -23,6 +23,8 @@ sudo apt update
 sudo apt upgrade
 sudo apt install wget
 sudo apt install git
+sudo apt install sl
+sudo apt install cmatrix
 # the equivalent of Windows Terminal: TMUX
 # From here: https://github.com/dhaneshsivasamy07/tmux_tweaks/blob/master/.tmux.conf
 curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/install.sh | sudo bash
@@ -46,7 +48,6 @@ sudo snap install powershell --classic
 #apt-get install libgl1-mesa-glx libegl1-mesa libxrandr2 libxrandr2 libxss1 libxcursor1 libxcomposite1 libasound2 libxi6 libxtst6
 
 # miniconda
-#sudo apt install wget
 #wget https://repo.anaconda.com/miniconda/Miniconda3-py39_4.10.3-Linux-x86_64.sh
 #bash Miniconda3-py39_4.10.3-Linux-x86_64.sh -y
 #source .bashrc  # reload to activate conda
