@@ -4,8 +4,7 @@ This script Takes away all config files from the computer, place them in one dir
 `dotfiles`, and create symlinks to those files from thier original locations.
 """
 import crocodile.toolbox as tb
-import platform
-from crocodile.environment import DotFiles, get_shell_profiles, system, AppData
+from crocodile.environment import DotFiles, get_shell_profiles, system, AppData, UserName, sep
 
 
 def symlink(this: tb.P, to_this: tb.P, overwrite=True):
@@ -57,7 +56,7 @@ def link_gitconfig(overwrite=True):
 
 
 def link_scripts(overwrite=True):
-    folder = {"Windows": "windows", "Linux": "linux"}[platform.system()]
+    folder = {"Windows": "windows", "Linux": "linux"}[system]
     symlink(tb.P.home().joinpath("scripts"), tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}"), overwrite=overwrite)
 
 
@@ -90,6 +89,10 @@ def link_ipython(overwrite=True):
 def link_autostart(overwrite=True):
     file = AppData.joinpath("Microsoft/Windows/Start Menu/Programs/Startup").joinpath("startup_file.cmd")
     symlink(file, tb.P(r"~/code/dotfiles/jobs/windows/startup_file.cmd").expanduser(), overwrite=overwrite)
+
+
+def add_scripts_to_path():
+    tb.Terminal().run("$profile").as_path.modify_text("???", rf'\n$env:Path += ";{tb.P.home()}\scripts"')
 
 
 def main():

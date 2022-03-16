@@ -12,7 +12,7 @@ def install():
     folder = tb.P("https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip").download().unzip()
     txt = tb.P(__file__).with_name("install_fonts.ps1").read_text().replace(r".\fonts-to-be-installed", str(folder))
     file = tb.P.tmpfile(suffix=".ps1").write_text(txt)
-    tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -File \"{file}\"")
+    tb.subprocess.run(rf"powershell.exe -executionpolicy Bypass -nologo -noninteractive -File {file.str}")
 
     # Step 2: Install icons
     tb.Terminal().run("Install-Module -Name Terminal-Icons -Repository PSGallery", shell="powershell")
@@ -31,7 +31,8 @@ def install():
 
     # Step 5: customize powershell profile such that it loads oh-my-posh and the terminal icons automatically.
     profile_path = tb.Terminal().run("$profile", shell=shell).as_path
-    theme_path = env.LocalAppData.joinpath(r"Programs\oh-my-posh\themes").collapseuser()  # makes the profile work on any machine.
+    theme_path = env.LocalAppData.joinpath(r"Programs\oh-my-posh\themes").collapseuser()
+    # makes the profile work on any machine.
     txt = f"oh-my-posh --init --shell pwsh --config {theme_path}\\jandedobbeleer.omp.json | Invoke-Expression"
     profile_path.modify_text(txt="oh-my-posh", alt=txt, newline=True)
     profile_path.modify_text(txt="Import-Module -Name Terminal-Icons", alt="Import-Module -Name Terminal-Icons", newline=True)
