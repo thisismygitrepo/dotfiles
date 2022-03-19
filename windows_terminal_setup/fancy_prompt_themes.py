@@ -1,6 +1,5 @@
 
 import crocodile.toolbox as tb
-import crocodile.environment as env
 
 """
 setup file for each shell can be found in $profile. The settings.json is the config file for Terminal.
@@ -8,6 +7,8 @@ setup file for each shell can be found in $profile. The settings.json is the con
 
 
 def install():
+    import crocodile.environment as env
+
     # Step 1: download the required fonts that has all the glyphs and install them.
     folder = tb.P("https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip").download().unzip()
     txt = tb.P(__file__).with_name("install_fonts.ps1").read_text().replace(r".\fonts-to-be-installed", str(folder))
@@ -50,7 +51,7 @@ def choose(name=""):
         # replace ~/jan... with full path to theme. use: start $profile
         name = input(f"A chrome tab with styles is opened, choose one and put its name here: [jandedobbeleer] ")
     if name == "show":
-        tb.os.system("Get-PoshThemes")
+        tb.os.system("Write-Host Get-PoshThemes")
         return ""
     if name == "": name = themes_path.search().apply(lambda x: x.trunk).sample()[0]
 
