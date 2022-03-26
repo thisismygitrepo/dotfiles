@@ -91,8 +91,7 @@ def link_autostart(overwrite=True):
     symlink(file, tb.P(r"~/code/dotfiles/jobs/windows/startup_file.cmd").expanduser(), overwrite=overwrite)
 
 
-def add_scripts_to_path():
-    tb.Terminal().run("$profile").as_path.modify_text("???", rf'\n$env:Path += ";{tb.P.home()}\scripts"')
+def add_scripts_to_path(): tb.Terminal().run("$profile").as_path.modify_text("???", rf'\n$env:Path += ";{tb.P.home()}\scripts"')
 
 
 def main():

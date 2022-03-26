@@ -12,8 +12,10 @@ winget install --name "Mozilla Firefox"
 winget install --name "Mozilla Thunderbird"
 winget install --name "Microsoft Garage Mouse without Borders"
 #winget install --name "VLC media player" --source "winget"
-
-# winget install "sql server management studio"
+#winget install --name "StreamlabsOBS" --Id "Streamlabs.StreamlabsOBS" --source "winget"
+#winget install --name "sql server management studio" --Id "Microsoft.SQLServerManagementStudi" --source winget
+#winget install --name "MiKTeX" --Id "ChristianSchenk.MiKTeX"  --source winget  # library / lanugage
+#winget install --name "TexMaker" --Id "Texmaker.Texmaker" --source winget  # IDE better than simple TexWorks shipped with MikTex. IDE is basically GUI for cmd interface of Tex
 
 # IDEs
 # winget install --name "anaconda3"
@@ -27,7 +29,4 @@ winget install --name "PyCharm Professional Edition"
 winget install --name "Node.js"
 winget install --name "julia" --Id "Julialang.Julia" --source winget
 winget install --name "DB Browser for SQLite"
-winget install --wsl "Ubuntu" --Id Canonical.Ubuntu --source winget
-# in the future it will be: `wsl --install`
-Ubuntu  # this will install it, you will be prompted for user name and password.
-
+wsl --install -d Ubuntu

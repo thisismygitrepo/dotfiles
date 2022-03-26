@@ -10,8 +10,3 @@
 $key_value = cat ($env:USERPROFILE + "\.ssh\id_rsa.pub")
 ssh $args[0] "powershell.exe -Command echo $key_value >> .ssh/authorized_keys"
 
-# tod0: link recognized_keys file, mouse_wouthout borders.
-# shell for installing open-ssh on windows setupmachine.
-
-# 14.2.84.106
-

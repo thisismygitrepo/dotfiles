@@ -20,8 +20,7 @@ def retrieve(source_file, target_folder):
     """Decrypts and brings a copy of `dotfiles` from OneDrive"""
     OneDriveExe()  # load latest from OneDrive.
     key = DotFiles.joinpath("creds/encrypted_files_key.bytes")
-    if not key.exists():
-        key = tb.P(input(f"path to key (DONT'T use quotation marks nor raw prefix):")).unzip(inplace=False, verbose=True).find()
+    if not key.exists(): key = tb.P(input(f"path to key (DONT'T use quotation marks nor raw prefix):")).unzip(inplace=False, verbose=True).find()
     dotfiles = OneDriveConsumer.joinpath(f"AppData/{source_file}").copy(folder=target_folder)
     # make sure to avoid doing decryption in the storage site.
     dotfiles.decrypt(key=key, inplace=True).unzip(folder=target_folder, inplace=True, verbose=True)

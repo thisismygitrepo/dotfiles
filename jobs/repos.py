@@ -16,9 +16,7 @@ def push_one(path):
     print(f"Pushing {path}".center(80, "-"))
     remotes = tm.run(f"cd {path}; git remote", shell="powershell").op.split("\n")
     for remote in remotes:
-        if remote != "":
-            res = tm.run(f'cd {path}; git push {remote}', shell="powershell")
-            res.print()
+        if remote != "": tm.run(f'cd {path}; git push {remote}', shell="powershell").print()
 
 
 def pull_one(path):
@@ -30,16 +28,9 @@ def pull_one(path):
             res.print()
 
 
-def commit_all():
-    tb.P.home().joinpath("code").search("*").apply(lambda x: commit_one(x), verbose=True)
-
-
-def push_all():
-    tb.P.home().joinpath("code").search("*").apply(lambda x: push_one(x), verbose=True)
-
-
-def pull_all():
-    tb.P.home().joinpath("code").search("*").apply(lambda x: pull_one(x), verbose=True)
+def commit_all(): tb.P.home().joinpath("code").search("*").apply(lambda x: commit_one(x), verbose=True)
+def push_all(): tb.P.home().joinpath("code").search("*").apply(lambda x: push_one(x), verbose=True)
+def pull_all(): tb.P.home().joinpath("code").search("*").apply(lambda x: pull_one(x), verbose=True)
 
 
 if __name__ == '__main__':
