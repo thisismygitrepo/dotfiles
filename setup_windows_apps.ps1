@@ -17,7 +17,7 @@ winget install --name "Microsoft Garage Mouse without Borders"
 #winget install --name "MiKTeX" --Id "ChristianSchenk.MiKTeX"  --source winget  # library / lanugage
 #winget install --name "TexMaker" --Id "Texmaker.Texmaker" --source winget  # IDE better than simple TexWorks shipped with MikTex. IDE is basically GUI for cmd interface of Tex
 
-# IDEs
+
 # winget install --name "anaconda3"
 # winget install --name miniconda3
 winget install --name "notepad++" --source winget

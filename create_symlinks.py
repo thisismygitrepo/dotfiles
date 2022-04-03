@@ -14,26 +14,17 @@ def symlink(this: tb.P, to_this: tb.P, overwrite=True):
     True means this will potentially be overwritten
     False means to_this will potentially be overwittten."""
     if this.is_symlink(): this.delete(sure=True)  # delete if it exists as symblic link, not a concrete path.
-
     if this.exists():  # this is a problem. It will be resolved via `overwrite`
         if overwrite is True:  # it *can* be deleted, but let's look at target first.
-            if to_this.exists():  # this exists, to_this as well. to_this is prioritized.
-                this.delete(sure=True)
-            else:  # this exists, to_this doesn't. to_this is prioritized.
-                this.move(path=to_this)
+            if to_this.exists(): this.delete(sure=True)  # this exists, to_this as well. to_this is prioritized.
+            else: this.move(path=to_this)  # this exists, to_this doesn't. to_this is prioritized.
         elif overwrite is False:  # don't sacrefice this, sacrefice to_this.
-            if to_this.exists():  # this exists, to_this as well, this is prioritized.
-                this.move(path=to_this, overwrite=True)  # now we are readly to make the link
-            else:  # this exists, to_this doesn't, this is prioritized.
-                this.move(path=to_this)
+            if to_this.exists(): this.move(path=to_this, overwrite=True)  # this exists, to_this as well, this is prioritized.   # now we are readly to make the link
+            else: this.move(path=to_this)  # this exists, to_this doesn't, this is prioritized.
     else:  # this doesn't exist.
-        if not to_this.exists():  # we have to touch it (file) or create it (folder)
-            to_this.touch()
-
-    try:
-        tb.P(this).symlink_to(to_this, verbose=True, overwrite=True)
-    except Exception as ex:
-        print(f"Failed at linking {this} ==> {to_this}.\nReason: {ex}")
+        if not to_this.exists(): to_this.touch()  # we have to touch it (file) or create it (folder)
+    try: tb.P(this).symlink_to(to_this, verbose=True, overwrite=True)
+    except Exception as ex: print(f"Failed at linking {this} ==> {to_this}.\nReason: {ex}")
 
 
 def link_ssh(overwrite=True):
@@ -46,13 +37,11 @@ def link_ssh(overwrite=True):
 def link_aws(overwrite=True):
     path = tb.P.home().joinpath(".aws")
     target = DotFiles.joinpath("aws/.aws")
-    for item in target.search("*"):
-        symlink(path.joinpath(item.name), item, overwrite=overwrite)
+    for item in target.search("*"): symlink(path.joinpath(item.name), item, overwrite=overwrite)
 
 
 def link_gitconfig(overwrite=True):
-    for config in [".gitconfig"]:
-        symlink(tb.P.home().joinpath(config), DotFiles.joinpath(f"settings/{config}"), overwrite=overwrite)
+    for config in [".gitconfig"]: symlink(tb.P.home().joinpath(config), DotFiles.joinpath(f"settings/{config}"), overwrite=overwrite)
 
 
 def link_scripts(overwrite=True):
@@ -65,16 +54,14 @@ def link_pypi_creds(overwrite=True):
 
 
 def link_powershell(overwrite=True):
-    if system == "Linux":
-        return
+    if system == "Linux": return None
     for profile_name, profile_path in get_shell_profiles(shell="pwsh").items():
         target = DotFiles.joinpath(f"shells/powershell/{profile_name}/{profile_path.name}")
         symlink(profile_path, target, overwrite=overwrite)
 
 
 def link_windows_powershell(overwrite=True):
-    if system == "Linux":
-        return
+    if system == "Linux": return None
     for profile_name, profile_path in get_shell_profiles(shell="powershell").items():
         target = DotFiles.joinpath(f"shells/powershell/{profile_name}/{profile_path.name}")
         symlink(profile_path, target, overwrite=overwrite)
