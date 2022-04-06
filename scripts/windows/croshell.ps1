@@ -5,7 +5,7 @@ param ($c="")
 
 if ($c -eq "") {
     clear
-    ipython -i --no-banner --term-title CROSHELL -m crocodile.croshell -c $c
+    ipython -i --no-banner --term-title CROSHELL -m crocodile.croshell
 }
 else {
     python -c ("from crocodile.toolbox import *; import crocodile.environment as env;" + $c)
