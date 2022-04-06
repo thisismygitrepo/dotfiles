@@ -49,16 +49,12 @@ class TerminalSettings(object):
                     # guid="{" + str(uuid4()) + "}",  # WT doesn't accept any GUID to identify pwsh
                     startingDirectory="%USERPROFILE%",  # "%USERPROFILE%",   # None: inherent from parent process.
                     )
-        if nerd_font:
-            pwsh["font"] = dict(face="CaskaydiaCove Nerd Font")  # because oh-my-posh uses glyphs from this font.
-
+        if nerd_font: pwsh["font"] = dict(face="CaskaydiaCove Nerd Font")  # because oh-my-posh uses glyphs from this font.
         for idx, item in enumerate(self.profs):
             if item["name"] == "PowerShell":
                 self.profs[idx].update(pwsh)
                 break
-        else:
-            # self.profs.append(pwsh)
-            print(f"Couldn't customize powershell because profile not found, try to install it first.")
+        else: print(f"Couldn't customize powershell because profile not found, try to install it first.")
 
     def make_powershell_default_profile(self):
         for profile in self.profs:
@@ -66,8 +62,7 @@ class TerminalSettings(object):
                 self.dat["defaultProfile"] = profile["guid"]
                 print("Powershell is now the default profile.")
                 break
-        else:
-            print("Powershell profile was not found in the list of profile and therefore was not made the deafult.")
+        else: print("Powershell profile was not found in the list of profile and therefore was not made the deafult.")
 
     def add_croshell(self):
         # Adding croshell if it is not there.
@@ -84,8 +79,7 @@ class TerminalSettings(object):
             if profile["name"] == "croshell":
                 profile.update(croshell)
                 break
-        else:
-            self.profs.append(croshell)
+        else: self.profs.append(croshell)
 
     def add_ubuntu(self):
         # Add Ubunto if it is not there.
@@ -104,23 +98,13 @@ class TerminalSettings(object):
         for profile in self.profs:
             name = profile["name"]
             if name == "PowerShell": pwsh = profile
-            elif name == "croshell":
-                croshell = profile
-            elif name == "Ubuntu":
-                ubuntu = profile
-            elif name == "Windows PowerShell":
-                wpwsh = profile
-            elif name == "Command Prompt":
-                cmd = profile
-            elif name == "Azure Cloud Shell":
-                azure = profile
-            else:
-                others.append(profile)
-        result = []
-        for item in [pwsh, croshell, ubuntu, wpwsh, cmd, azure] + others:
-            if item is not None:
-                result.append(item)
-        self.profs = result
+            elif name == "croshell": croshell = profile
+            elif name == "Ubuntu": ubuntu = profile
+            elif name == "Windows PowerShell": wpwsh = profile
+            elif name == "Command Prompt": cmd = profile
+            elif name == "Azure Cloud Shell": azure = profile
+            else: others.append(profile)
+        self.profs = [item for item in [pwsh, croshell, ubuntu, wpwsh, cmd, azure] + others if item is not None]
 
 
 def main():

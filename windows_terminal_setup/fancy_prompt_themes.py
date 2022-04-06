@@ -40,21 +40,19 @@ def install():
 
 
 def choose(name=""):
-    """run this function to interactively choose a style
-    Optionally, inpsect the themes of oh my posh and select one:
+    """run this function to interactively choose a style. Optionally, inpsect the themes of oh my posh and select one:
     """
-    themes_path = tb.Terminal().run("$env:POSH_THEMES_PATH", shell='pwsh').as_path
-    current_theme = tb.Terminal().run("$env:POSH_THEME", shell='pwsh').as_path.trunk
+    import os
+    themes_path = tb.P(os.environ["POSH_THEMES_PATH"])
+    current_theme = tb.P(os.environ["POSH_THEME"]).trunk
 
     if name == "manual":
-        tb.P("https://ohmyposh.dev/docs/themes").start()
-        # replace ~/jan... with full path to theme. use: start $profile
+        tb.P("https://ohmyposh.dev/docs/themes").start()  # replace ~/jan... with full path to theme. use: start $profile
         name = input(f"A chrome tab with styles is opened, choose one and put its name here: [jandedobbeleer] ")
     if name == "show":
-        tb.os.system("Write-Host Get-PoshThemes")
+        __import__("os").system("Write-Host Get-PoshThemes")
         return ""
     if name == "": name = themes_path.search().apply(lambda x: x.trunk).sample()[0]
-
     print("Current Theme:", current_theme)
     print("New theme: ", name)
     tb.Terminal().run("$profile", shell="pwsh").as_path.modify_text(txt=current_theme, alt=name, newline=False)
