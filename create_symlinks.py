@@ -4,7 +4,7 @@ This script Takes away all config files from the computer, place them in one dir
 `dotfiles`, and create symlinks to those files from thier original locations.
 """
 import crocodile.toolbox as tb
-from crocodile.environment import DotFiles, get_shell_profiles, system, AppData, UserName, sep
+from crocodile.environment import DotFiles, get_shell_profiles, system, AppData
 
 
 def symlink(this: tb.P, to_this: tb.P, overwrite=True):
@@ -44,11 +44,6 @@ def link_gitconfig(overwrite=True):
     for config in [".gitconfig"]: symlink(tb.P.home().joinpath(config), DotFiles.joinpath(f"settings/{config}"), overwrite=overwrite)
 
 
-def link_scripts(overwrite=True):
-    folder = {"Windows": "windows", "Linux": "linux"}[system]
-    symlink(tb.P.home().joinpath("scripts"), tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}"), overwrite=overwrite)
-
-
 def link_pypi_creds(overwrite=True):
     symlink(tb.P.home().joinpath(".pypirc"), DotFiles.joinpath("creds/.pypirc"), overwrite=overwrite)
 
@@ -78,7 +73,12 @@ def link_autostart(overwrite=True):
     symlink(file, tb.P(r"~/code/dotfiles/jobs/windows/startup_file.cmd").expanduser(), overwrite=overwrite)
 
 
-def add_scripts_to_path(): tb.Terminal().run("$profile").as_path.modify_text("???", rf'\n$env:Path += ";{tb.P.home()}\scripts"')
+def link_scripts(overwrite=True):
+    folder = {"Windows": "windows", "Linux": "linux"}[system]
+    symlink(tb.P.home().joinpath("scripts"), tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}"), overwrite=overwrite)
+
+
+def add_scripts_to_path(): tb.Terminal().run("$profile", shell="pwsh").as_path.modify_text("???", f'\n$env:Path += ";{tb.P.home().joinpath("code/dotfiles/scripts/windows")}"', notfound_append=True)
 
 
 def main():

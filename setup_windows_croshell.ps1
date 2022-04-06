@@ -38,7 +38,10 @@ winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget  
 # ==== Fancy shell:
 winget install JanDeDobbeleer.OhMyPosh
 cd ~/code/dotfiles
+
+python -m fire "./create_symlinks.py" add_scripts_to_path
 python -m fire "windows_terminal_setup/change_terminal_settings.py" main
 python -m fire "windows_terminal_setup/fancy_prompt_themes.py" install
 python -m fire "windows_terminal_setup/fancy_prompt_themes.py" choose
 
+croshell -c "P(r'https://download.sysinternals.com/files/ZoomIt.zip').download(P.home().joinpath('Downloads')).unzip(inplace=True).joinpath('ZoomIt.exe').move(folder=env.WindowsApps)"
