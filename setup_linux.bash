@@ -12,9 +12,9 @@ sudo apt install sl
 sudo apt install cmatrix
 # the equivalent of Windows Terminal: TMUX
 # From here: https://github.com/dhaneshsivasamy07/tmux_tweaks/blob/master/.tmux.conf
-curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/install.sh | sudo bash
-cd ~ || exit
-curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/tmux.conf > .tmux.conf
+#curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/install.sh | sudo bash
+#cd ~ || exit
+#curl -s https://raw.githubusercontent.com/dhaneshsivasamy07/tmux_tweaks/master/tmux.conf > .tmux.conf
 sudo apt install tmux  # allows multiple terminals that are persistent.
 
 # install chrome:
@@ -60,4 +60,5 @@ cd ~ || exit
 python -m fire ~/code/dotfiles/create_symlinks.py link_scripts
 sudo chmod 600 ~/.ssh/*
 sudo chmod 700 ~/.ssh
+cat .ssh/id_rsa.pub > .ssh/authorized_keys
 echo "All Done!"
