@@ -4,7 +4,7 @@ This script Takes away all config files from the computer, place them in one dir
 `dotfiles`, and create symlinks to those files from thier original locations.
 """
 import crocodile.toolbox as tb
-from crocodile.environment import DotFiles, get_shell_profiles, system, AppData
+from crocodile.environment import DotFiles, get_shell_profiles, system, AppData, exe
 
 
 def symlink(this: tb.P, to_this: tb.P, overwrite=True):
@@ -73,12 +73,17 @@ def link_autostart(overwrite=True):
     symlink(file, tb.P(r"~/code/dotfiles/jobs/windows/startup_file.cmd").expanduser(), overwrite=overwrite)
 
 
+folder = {"Windows": "windows", "Linux": "linux"}[system]
+
+
 def link_scripts(overwrite=True):
-    folder = {"Windows": "windows", "Linux": "linux"}[system]
     symlink(tb.P.home().joinpath("scripts"), tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}"), overwrite=overwrite)
 
 
-def add_scripts_to_path(): tb.Terminal().run("$profile", shell="pwsh").as_path.modify_text("???", f'\n$env:Path += ";{tb.P.home().joinpath("code/dotfiles/scripts/windows")}"', notfound_append=True)
+def add_scripts_to_path():  # options to make croshell available: define in terminal profile, add to Path, or add to some folder that is already in path, e.g. env.WindowsApps or Scripts folder where python.exe resides.
+    assert system == "Windows"
+    tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}/croshell.ps1").symlink_from(folder=exe.parent)
+    tb.Terminal().run("$profile", shell="pwsh").as_path.modify_text("???", f'\n$env:Path += ";{tb.P.home().joinpath("code/dotfiles/scripts/windows")}"', notfound_append=True)
 
 
 def main():

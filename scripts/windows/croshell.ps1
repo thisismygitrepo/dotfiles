@@ -2,6 +2,8 @@
 param ($c="")
 
 ~/venvs/ve/Scripts/Activate.ps1
+#$py = "C:\Users\Alex\venvs\ve\Scripts\python.exe"
+#$ipy = "C:\Users\Alex\venvs\ve\Scripts\ipython.exe"
 
 if ($c -eq "") {
     clear
