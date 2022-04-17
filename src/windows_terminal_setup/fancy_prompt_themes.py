@@ -23,7 +23,7 @@ def install():
 
     # Step 4: change the profile of the terminal such that nerd font is chosen for your shell
     shell = {"powershell": "pwsh.exe", "Windows Powershell": "powershell.exe"}["powershell"].split(".exe")[0]
-    from windows_terminal_setup.change_terminal_settings import TerminalSettings
+    from src.windows_terminal_setup.change_terminal_settings import TerminalSettings
     if shell == "pwsh":
         ts = TerminalSettings()
         ts.customize_powershell(nerd_font=True)

@@ -1,5 +1,5 @@
 
-# Welcome to Dotfiles
+# Welcome to Croshell & Dotfiles
 Dotfiles is a repo for managing dotfiles. The idea is to collect those time-consuming files to setup in one directory and reference them via symbolic links from there original locations. Thus, when a new machine is required to be setup, all that is required to clone the repo in that machine and create the symbolic links.
 
 Dotfiles include, but are not limited to:
