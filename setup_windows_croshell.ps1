@@ -2,15 +2,16 @@
 
 # =============================== PYTHON =================================================
 winget install --name "Git"
+#git config credential.helper store  # makes git remember credentials.
 
 # a terminal restart of terminal is required to for git to work, or the one can update the path
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
-winget install -e --id "Python.Python.3" -v "3.9.7150.0" --source winget
+winget install -e --id "Python.Python.3" -v "3.9.7150.0" --source winget  # from https:\\winget.run
 set mypy ($env:LOCALAPPDATA + "\Programs\Python\Python39\python.exe")
 # OR: winget install --name "Python 3" --source winget  # gives the latest python
 
-python3.9 -m pip install venv
+#python3.9 -m pip install venv
 mkdir ~/venvs
 cd ~
 python3.9 -m venv "./venvs/ve"  # ve will have same python version as `python`, where it.

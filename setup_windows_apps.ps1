@@ -4,7 +4,7 @@
 # ================================= APPS ================================================
 winget install --name "Google Chrome" --Id "Google.Chrome" --source winget
 #winget install --name "Chrome Remote Desktop Host" --Id "Google.ChromeRemoteDesktop" --source winget
-# winget search "Microsoft Teams" --Id "Microsoft.Teams" --Source winget
+#winget search "Microsoft Teams" --Id "Microsoft.Teams" --Source winget
 
 # productivity
 winget install --name "7-zip" --Id "7zip.7zip" --source winget
@@ -17,15 +17,17 @@ winget install --name "Microsoft Garage Mouse without Borders"
 #winget install --name "MiKTeX" --Id "ChristianSchenk.MiKTeX"  --source winget  # library / lanugage
 #winget install --name "TexMaker" --Id "Texmaker.Texmaker" --source winget  # IDE better than simple TexWorks shipped with MikTex. IDE is basically GUI for cmd interface of Tex
 
-# winget install --name "anaconda3"
-# winget install --name miniconda3
+#winget install --name "anaconda3"
+#winget install --name miniconda3
 winget install --name "notepad++" --source winget
 winget install --name "Microsoft Visual Studio Code" --Id "Microsoft.VisualStudioCode" --source winget
 winget install --name "PyCharm Professional Edition"
-# winget install --name "PyCharm Community Edition" --Id "JetBrains.PyCharm.Community" --source winget
-# winget install spyder
+#winget install --name "PyCharm Community Edition" --Id "JetBrains.PyCharm.Community" --source winget
+#winget install spyder
 
 winget install --name "Node.js"
 winget install --name "julia" --Id "Julialang.Julia" --source winget
 winget install --name "DB Browser for SQLite"
 wsl --install -d Ubuntu
+
+# iex ((New-Object System.Net.WebClient).DownloadString('https://git.io/JJ8R4'))  # tune machine to minimal

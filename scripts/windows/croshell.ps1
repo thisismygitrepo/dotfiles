@@ -1,5 +1,6 @@
 
 param ($c="")
+#paarm ($python="")
 
 ~/venvs/ve/Scripts/Activate.ps1
 #$py = "C:\Users\Alex\venvs\ve\Scripts\python.exe"
@@ -7,7 +8,9 @@ param ($c="")
 
 if ($c -eq "") {
     clear
+#    python -i -m crocodile.croshell
     ipython -i --no-banner --term-title CROSHELL -m crocodile.croshell
+
 }
 else {
     python -c ("from crocodile.toolbox import *; import crocodile.environment as env;" + $c)
