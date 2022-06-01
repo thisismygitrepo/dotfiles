@@ -1,7 +1,6 @@
 
-
 # =============================== PYTHON =================================================
-winget install --name "Git"
+winget install --name "Git" --Id "Git.Git" --source winget --accept-package-agreements --accept-source-agreements
 #git config credential.helper store  # makes git remember credentials.
 
 # a terminal restart of terminal is required to for git to work, or the one can update the path
@@ -14,7 +13,7 @@ set mypy ($env:LOCALAPPDATA + "\Programs\Python\Python39\python.exe")
 #python3.9 -m pip install venv
 mkdir ~/venvs
 cd ~
-python3.9 -m venv "./venvs/ve"  # ve will have same python version as `python`, where it.
+&$mypy  -m venv "./venvs/ve"  # ve will have same python version as `python`, where it.
 # activate
 ~/venvs/ve/Scripts/Activate.ps1
 python -m pip install --upgrade pip  # upgrades the pip that is within the environment.
@@ -33,14 +32,17 @@ pip install -r requirements.txt  # not installed automatically by corocdile.
 # ============================== Shells ===========================================
 # winget install --name "PuTTY"
 # winget install --name "AWS Command Line Interface"
-winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget  # Terminal is is installed by default on W 11
+# winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget  # Terminal is is installed by default on W 11
 winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget  # powershell require admin
 
 # ==== Fancy shell:
 winget install JanDeDobbeleer.OhMyPosh
 cd ~/code/dotfiles
 
-python -m fire "./create_symlinks.py" add_scripts_to_path
+python -m fire ./jobs/backup_retrieve.py retrieve_dotfiles  # assuming key.zip is in Downloads folder.
+python -m fire "./create_symlinks.py" main
+python -m fire "./create_symlinks.py" add_scripts_to_path  # croshell is available, along with all scripts via $profile adding script path to env.Path
+
 python -m fire "windows_terminal_setup/change_terminal_settings.py" main
 python -m fire "windows_terminal_setup/fancy_prompt_themes.py" install
 python -m fire "windows_terminal_setup/fancy_prompt_themes.py" choose

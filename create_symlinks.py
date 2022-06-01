@@ -82,8 +82,9 @@ def link_scripts(overwrite=True):
 
 def add_scripts_to_path():  # options to make croshell available: define in terminal profile, add to Path, or add to some folder that is already in path, e.g. env.WindowsApps or Scripts folder where python.exe resides.
     assert system == "Windows"
-    tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}/croshell.ps1").symlink_from(folder=exe.parent)
-    tb.Terminal().run("$profile", shell="pwsh").as_path.modify_text("???", f'\n$env:Path += ";{tb.P.home().joinpath("code/dotfiles/scripts/windows")}"', notfound_append=True)
+    tb.P.home().joinpath(f"code/dotfiles/scripts/{folder}/croshell.ps1").symlink_from(folder=exe.parent)  # thus, whenever ve is activated, croshell is available.
+    addition = f'\n$env:Path += ";{tb.P.home().joinpath("code/dotfiles/scripts/windows")}"'
+    tb.Terminal().run("$profile", shell="pwsh").as_path.modify_text(addition, addition, notfound_append=True)
 
 
 def main():
@@ -97,7 +98,7 @@ def main():
     link_scripts(overwrite=overwrite)
     link_aws(overwrite=overwrite)
     link_ssh(overwrite=overwrite)
-    link_autostart(overwrite=overwrite)
+    # link_autostart(overwrite=overwrite)
 
 
 if __name__ == '__main__':
