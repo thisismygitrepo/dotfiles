@@ -33,3 +33,8 @@ Restart-Service sshd -Force
 
 #Write-Host "Use this to Login/test Now"
 #write-host ssh $env:UserName@localhost
+
+# Next up, change default shell to powershell, becuse CMD is lame
+# following: https://github.com/PowerShell/Win32-OpenSSH/wiki/DefaultShell
+New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShell -Value "C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe" -PropertyType String -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\OpenSSH" -Name DefaultShellCommandOption -Value "/c" -PropertyType String -Force
