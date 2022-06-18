@@ -27,6 +27,16 @@ winget install --name "PyCharm Community Edition" --Id "JetBrains.PyCharm.Commun
 #winget install spyder
 
 # ================================================== Shells ===========================================
+$ErrorActionPreference = "Stop"  # if there is any error in any command, stop there instead of proceeding to the next.
+winget install -e --id "Python.Python.3" -v "3.9.7150.0" --source winget  # from https:\\winget.run
+winget install Python.Python.3 --source winget  # installs the latest.
+# OR: winget install --name "Python 3" --source winget  # gives the latest python
+
+winget install --name "Git" --Id "Git.Git" --source winget --accept-package-agreements --accept-source-agreements
+#git config credential.helper store  # makes git remember credentials.
+# a terminal restart of terminal is required to for git to work, or the one can update the path
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+
 # winget install --name "PuTTY"
 # winget install --name "AWS Command Line Interface"
 # winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget  # Terminal is is installed by default on W 11

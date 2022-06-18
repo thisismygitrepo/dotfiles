@@ -4,6 +4,8 @@
 winget install JanDeDobbeleer.OhMyPosh
 cd ~/code/dotfiles
 
+& ~/venvs/$ve_name/Scripts/Activate.ps1
+
 python -m fire ./jobs/backup_retrieve.py retrieve_dotfiles  # assuming key.zip is in Downloads folder.
 python -m fire "./create_symlinks.py" main
 python -m fire "./create_symlinks.py" add_scripts_to_path  # croshell is available, along with all scripts via $profile adding script path to env.Path
