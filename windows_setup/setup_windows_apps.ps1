@@ -1,5 +1,6 @@
 
 # to get exact version of an app in winget, head to: https://winget.run
+$ErrorActionPreference = "Stop"
 
 # ================================= APPS ================================================
 winget install --name "Google Chrome" --Id "Google.Chrome" --source winget --accept-package-agreements --accept-source-agreements
@@ -21,12 +22,20 @@ winget install --name "Microsoft Garage Mouse without Borders" --accept-package-
 #winget install --name miniconda3
 winget install --name "notepad++" --source winget --accept-package-agreements --accept-source-agreements
 winget install --name "Microsoft Visual Studio Code" --Id "Microsoft.VisualStudioCode" --source winget --accept-package-agreements --accept-source-agreements
-winget install --name "PyCharm Professional Edition" --accept-package-agreements --accept-source-agreements
-#winget install --name "PyCharm Community Edition" --Id "JetBrains.PyCharm.Community" --source winget --accept-package-agreements --accept-source-agreements
+# winget install --name "PyCharm Professional Edition" --accept-package-agreements --accept-source-agreements
+winget install --name "PyCharm Community Edition" --Id "JetBrains.PyCharm.Community" --source winget --accept-package-agreements --accept-source-agreements
 #winget install spyder
 
-winget install --name "Node.js" --accept-package-agreements --accept-source-agreements
+# ================================================== Shells ===========================================
+# winget install --name "PuTTY"
+# winget install --name "AWS Command Line Interface"
+# winget install --name "Windows Terminal" --Id "Microsoft.WindowsTerminal" --Source winget  # Terminal is is installed by default on W 11
+winget install --name "Powershell" --Id "Microsoft.PowerShell" --source winget  # powershell require admin
+
+# winget install --name "Node.js" --accept-package-agreements --accept-source-agreements
 winget install --name "julia" --Id "Julialang.Julia" --source winget --accept-package-agreements --accept-source-agreements
+# winget install --Id Rustlang.Rust.MSVC --source winget
+# https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe
 winget install --name "DB Browser for SQLite" --accept-package-agreements --accept-source-agreements
 wsl --install -d Ubuntu --accept-package-agreements --accept-source-agreements
 
